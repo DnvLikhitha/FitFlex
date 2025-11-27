@@ -101,22 +101,34 @@ const History = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-white">Workout History</h1>
-        <p className="text-gray-300">View your complete workout history and statistics</p>
+      {/* Hero Section */}
+      <div className="relative rounded-2xl overflow-hidden h-48 bg-gradient-to-r from-gray-900 via-green-900 to-gray-900">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-40"
+          style={{
+            backgroundImage: 'url(https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+        <div className="relative z-10 h-full flex items-center px-8">
+          <div>
+            <h1 className="text-5xl font-black text-white mb-2">Workout History</h1>
+            <p className="text-xl text-gray-300">Review your journey, celebrate your progress</p>
+          </div>
+        </div>
       </div>
 
       {/* Filters */}
-      <div className="glass-dark rounded-2xl p-6 border border-white/10">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
           <div className="flex items-center space-x-4">
-            <FaFilter className="text-blue-400" />
+            <FaFilter className="text-green-400" />
             <span className="font-medium text-white">Filter by:</span>
             
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             >
               <option value="all" className="bg-gray-800">All Activities</option>
               {activityTypes.map(type => (
@@ -126,12 +138,12 @@ const History = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <FaCalendar className="text-purple-400" />
+            <FaCalendar className="text-green-400" />
             <input
               type="date"
               value={dateRange.start}
               onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               placeholder="Start Date"
             />
             <span className="text-gray-400">to</span>
@@ -139,7 +151,7 @@ const History = () => {
               type="date"
               value={dateRange.end}
               onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               placeholder="End Date"
             />
           </div>
@@ -148,32 +160,32 @@ const History = () => {
 
       {/* Statistics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass-dark rounded-2xl p-6 text-center border border-white/10 card-hover">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mx-auto mb-3">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 text-center border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
             <FaFire className="text-white text-2xl" />
           </div>
           <div className="text-3xl font-bold text-white mb-1">{stats.total.calories}</div>
           <div className="text-sm text-gray-400">Total Calories</div>
         </div>
         
-        <div className="glass-dark rounded-2xl p-6 text-center border border-white/10 card-hover">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mx-auto mb-3">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 text-center border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
             <FaShoePrints className="text-white text-2xl" />
           </div>
           <div className="text-3xl font-bold text-white mb-1">{stats.total.steps.toLocaleString()}</div>
           <div className="text-sm text-gray-400">Total Steps</div>
         </div>
         
-        <div className="glass-dark rounded-2xl p-6 text-center border border-white/10 card-hover">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mx-auto mb-3">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 text-center border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
             <FaClock className="text-white text-2xl" />
           </div>
           <div className="text-3xl font-bold text-white mb-1">{stats.total.duration}</div>
           <div className="text-sm text-gray-400">Total Minutes</div>
         </div>
         
-        <div className="glass-dark rounded-2xl p-6 text-center border border-white/10 card-hover">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-3">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 text-center border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
             <FaRunning className="text-white text-2xl" />
           </div>
           <div className="text-3xl font-bold text-white mb-1">{stats.total.workouts}</div>
@@ -182,9 +194,9 @@ const History = () => {
       </div>
 
       {/* Activity History */}
-      <div className="glass-dark rounded-2xl p-6 border border-white/10">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-          <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full mr-3"></div>
+          <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-green-600 rounded-full mr-3"></div>
           Activity History ({filteredActivities.length} workouts)
         </h2>
         
@@ -199,7 +211,7 @@ const History = () => {
             {filteredActivities
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map(activity => (
-                <div key={activity.id} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-300 card-hover">
+                <div key={activity.id} className="bg-white/5 border border-green-500/10 rounded-xl p-5 hover:bg-white/10 hover:border-green-500/30 transition-all duration-300">
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center space-x-4">
                       <div className={'p-4 rounded-xl ' + (
