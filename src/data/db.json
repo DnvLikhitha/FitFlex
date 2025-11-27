@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "age": 28,
+      "weight": 75,
+      "height": 180
+    }
+  ],
+  "activities": [
+    {
+      "id": 1,
+      "userId": 1,
+      "type": "Running",
+      "duration": 45,
+      "calories": 320,
+      "steps": 6500,
+      "date": "2024-01-15",
+      "notes": "Morning run in the park"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "type": "Weight Training",
+      "duration": 60,
+      "calories": 280,
+      "steps": 1500,
+      "date": "2024-01-14",
+      "notes": "Chest and triceps day"
+    }
+  ],
+  "goals": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Lose 5kg",
+      "target": 5,
+      "current": 5,
+      "unit": "kg",
+      "type": "weight",
+      "deadline": "2024-03-01",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "Run 100km",
+      "target": 100,
+      "current": 56,
+      "unit": "km",
+      "type": "distance",
+      "deadline": "2024-02-28",
+      "completed": false
+    }
+  ]
+}
