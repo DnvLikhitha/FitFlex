@@ -63,15 +63,15 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Hero Section - Full Width */}
-      <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[650px] bg-gradient-to-br from-gray-900 via-green-900 to-gray-900">
+    <>
+      {/* Hero Section - Full Screen minus header */}
+      <div className="relative w-full" style={{ height: 'calc(100vh - 80px)' }}>
         <video 
           autoPlay 
           loop 
           muted 
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         >
           <source src="https://cdn-images.cure.fit/www-curefit-com/video/upload/w_1400,ar_1.77,q_auto:eco,f_auto,dpr_2,vc_auto/video/test/we-are-cult-web.mp4" type="video/mp4" />
         </video>
@@ -79,28 +79,26 @@ const Dashboard = () => {
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
         
-        <div className="relative z-10 h-full flex items-center px-12">
+        <div className="absolute inset-0 flex items-center px-12">
           <div className="max-w-4xl">
-            <h1 className="text-8xl font-black text-white mb-6 leading-tight">
-              <span className="text-white">REFRESH YOUR</span>
+            <h1 className="text-8xl font-black mb-6 leading-tight animate-slide-up">
+              <span className="text-green-300 animate-float">WE ARE</span>
               <br />
-              <span className="text-white">ROUTINE SHAPE</span>
-              <br />
-              <span className="text-white">YOUR </span>
-              <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">FITNESS</span>
+              <span className="bg-gradient-to-r from-green-300 via-green-400 to-yellow-300 bg-clip-text text-transparent animate-gradient">FitFlex</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
-              Engaging in regular exercise not only amplifies well-being and fortifies the body but also diminishes the likelihood of injuries thereby optimizing.
+            <p className="text-2xl text-white font-semibold mb-10 max-w-2xl leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
+              A fitness movement that is worth breaking a sweat for
             </p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
               <button
                 onClick={() => setShowActivityForm(true)}
-                className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 font-bold text-xl"
+                className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
               >
-                Join Now
+                <span className="relative z-10">Join Now</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
-              <button className="flex items-center gap-3 px-8 py-5 bg-transparent text-white rounded-lg hover:bg-white/10 transition-all duration-300 font-semibold text-xl">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+              <button className="flex items-center gap-3 px-8 py-5 bg-white/5 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-xl border border-white/10 hover:border-white/30 hover:scale-105 group">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
@@ -111,6 +109,10 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Content Section - Starts below video */}
+      <div className="relative">
+        <div className="bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 space-y-8">
 
       {/* Activity Form Modal */}
       {showActivityForm && (
@@ -128,27 +130,27 @@ const Dashboard = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Activity Distribution Doughnut Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/20 transition-all duration-300 animate-fade-in">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaRunning className="mr-3 text-green-400" />
+              <FaRunning className="mr-3 text-green-400 animate-bounce-slow" />
               Activity Distribution
             </h3>
             <DoughnutChart activities={activities} />
           </div>
 
           {/* Goals Progress Ring Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/20 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.1s'}}>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.1s'}}>
             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaTrophy className="mr-3 text-green-400" />
+              <FaTrophy className="mr-3 text-green-400 animate-bounce-slow" />
               Goals Progress
             </h3>
             <GoalsRingChart goals={goals} />
           </div>
 
           {/* Calories Burned Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/20 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.2s'}}>
             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaFire className="mr-3 text-green-400" />
+              <FaFire className="mr-3 text-green-400 animate-bounce-slow" />
               Weekly Calories
             </h3>
             <CaloriesBarChart activities={activities} />
@@ -156,43 +158,53 @@ const Dashboard = () => {
         </div>
 
         {/* Weekly Activity Chart */}
-        <div className="mt-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/20 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.3s'}}>
+        <div className="mt-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.3s'}}>
           <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-            <FaCalendar className="mr-3 text-green-400" />
+            <FaCalendar className="mr-3 text-green-400 animate-bounce-slow" />
             Weekly Activity Overview
           </h3>
           <WeeklyActivityChart activities={activities} />
         </div>
 
         {/* Stats Cards */}
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
-          <StatsCard 
-            icon={<FaDumbbell />}
-            value={stats.totalWorkouts}
-            label="Total Workouts"
-            color="green"
-          />
-          <StatsCard 
-            icon={<FaBolt />}
-            value={stats.todayDuration}
-            label="Active Minutes"
-            color="blue"
-          />
-          <StatsCard 
-            icon={<FaFire />}
-            value={stats.todayCalories}
-            label="Calories Burned"
-            color="orange"
-          />
-          <StatsCard 
-            icon={<FaTrophy />}
-            value={stats.activeGoals}
-            label="Active Goals"
-            color="purple"
-          />
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="animate-zoom-in" style={{animationDelay: '0.4s'}}>
+            <StatsCard 
+              icon={<FaDumbbell />}
+              value={stats.totalWorkouts}
+              label="Total Workouts"
+              color="green"
+            />
+          </div>
+          <div className="animate-zoom-in" style={{animationDelay: '0.5s'}}>
+            <StatsCard 
+              icon={<FaBolt />}
+              value={stats.todayDuration}
+              label="Active Minutes"
+              color="blue"
+            />
+          </div>
+          <div className="animate-zoom-in" style={{animationDelay: '0.6s'}}>
+            <StatsCard 
+              icon={<FaFire />}
+              value={stats.todayCalories}
+              label="Calories Burned"
+              color="orange"
+            />
+          </div>
+          <div className="animate-zoom-in" style={{animationDelay: '0.7s'}}>
+            <StatsCard 
+              icon={<FaTrophy />}
+              value={stats.activeGoals}
+              label="Active Goals"
+              color="purple"
+            />
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+    </>
   );
 };
 
@@ -431,12 +443,13 @@ const StatsCard = ({ icon, value, label, color }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 hover:border-green-500/40 transition-all duration-300 group hover:scale-105">
-      <div className={`w-12 h-12 bg-gradient-to-br ${colors[color]} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 hover:border-green-500/40 hover-lift transition-smooth group cursor-pointer overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className={`w-12 h-12 bg-gradient-to-br ${colors[color]} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 animate-glow relative z-10`}>
         <span className="text-white text-2xl">{icon}</span>
       </div>
-      <div className="text-4xl font-black text-white mb-2">{value}</div>
-      <div className="text-sm text-gray-400">{label}</div>
+      <div className="text-4xl font-black text-white mb-2 group-hover:scale-110 transition-transform duration-300 relative z-10">{value}</div>
+      <div className="text-sm text-gray-400 group-hover:text-green-400 transition-colors duration-300 relative z-10">{label}</div>
     </div>
   );
 };

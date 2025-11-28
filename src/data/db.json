@@ -2,11 +2,11 @@
   "users": [
     {
       "id": 1,
-      "name": "John Doe",
-      "email": "john@example.com",
-      "age": 28,
+      "name": "Bill Gates",
+      "email": "Bill@gmail.com",
+      "age": "78",
       "weight": 75,
-      "height": 180
+      "height": "230"
     }
   ],
   "activities": [
