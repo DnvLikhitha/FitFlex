@@ -11,7 +11,7 @@ const GoalList = ({ goals, onAddGoal, onEditGoal, onDeleteGoal, onUpdateProgress
         <p className="text-gray-300 mb-6">Set your first fitness goal to start tracking your progress!</p>
         <button
           onClick={onAddGoal}
-          className="flex items-center justify-center mx-auto px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
+          className="flex items-center justify-center mx-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
         >
           <FaPlus className="mr-2" />
           Set First Goal
@@ -29,7 +29,7 @@ const GoalList = ({ goals, onAddGoal, onEditGoal, onDeleteGoal, onUpdateProgress
         <h2 className="text-2xl font-bold text-white">Your Goals</h2>
         <button
           onClick={onAddGoal}
-          className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
+          className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
         >
           <FaPlus className="mr-2" />
           Set New Goal

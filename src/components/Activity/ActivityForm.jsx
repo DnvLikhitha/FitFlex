@@ -94,14 +94,14 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
   const activityTypes = ['Running', 'Walking', 'Cycling', 'Swimming', 'Weight Training', 'Yoga', 'HIIT', 'Other'];
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 mb-6 border border-green-500/20">
+      <h2 className="text-2xl font-bold mb-6 text-white">
         {isEdit ? 'Edit Activity' : 'Log New Activity'}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Activity Type
             </label>
             <select
@@ -109,17 +109,17 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
               value={formData.type}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             >
-              <option value="">Select activity type</option>
+              <option value="" className="bg-gray-800">Select activity type</option>
               {activityTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
+                <option key={type} value={type} className="bg-gray-800">{type}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Date
             </label>
             <input
@@ -128,12 +128,12 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
               value={formData.date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Duration (minutes)
             </label>
             <input
@@ -143,12 +143,12 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
               onChange={handleChange}
               required
               min="1"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Calories Burned
             </label>
             <input
@@ -158,12 +158,12 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
               onChange={handleChange}
               required
               min="1"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Steps
             </label>
             <input
@@ -172,13 +172,13 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
               value={formData.steps}
               onChange={handleChange}
               min="0"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Notes
           </label>
           <textarea
@@ -186,7 +186,7 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
             value={formData.notes}
             onChange={handleChange}
             rows="3"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder-gray-500"
             placeholder="Any additional notes about your workout..."
           />
         </div>
@@ -194,7 +194,7 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
         <div className="flex space-x-3 pt-4">
           <button
             type="submit"
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
           >
             <FaSave className="mr-2" />
             {isEdit ? 'Update Activity' : 'Log Activity'}
@@ -202,7 +202,7 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
           <button
             type="button"
             onClick={onCancel}
-            className="flex items-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-300 font-semibold"
           >
             <FaTimes className="mr-2" />
             Cancel

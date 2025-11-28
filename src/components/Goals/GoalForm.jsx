@@ -89,13 +89,13 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
   const selectedGoalType = goalTypes.find(type => type.value === formData.type);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 mb-6 border border-green-500/20">
+      <h2 className="text-2xl font-bold mb-6 text-white">
         {isEdit ? 'Edit Goal' : 'Create New Goal'}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Goal Title
           </label>
           <input
@@ -105,13 +105,13 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
             onChange={handleChange}
             required
             placeholder="e.g., Run a marathon, Lose 10kg"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder-gray-500"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Goal Type
             </label>
             <select
@@ -119,11 +119,11 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
               value={formData.type}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             >
-              <option value="">Select goal type</option>
+              <option value="" className="bg-gray-800">Select goal type</option>
               {goalTypes.map(type => (
-                <option key={type.value} value={type.value}>
+                <option key={type.value} value={type.value} className="bg-gray-800">
                   {type.label}
                 </option>
               ))}
@@ -131,7 +131,7 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Target Value
             </label>
             <input
@@ -142,12 +142,12 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
               required
               min="0.1"
               step="0.1"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Unit
             </label>
             <select
@@ -155,17 +155,17 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
               value={formData.unit}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             >
-              <option value="">Select unit</option>
+              <option value="" className="bg-gray-800">Select unit</option>
               {selectedGoalType?.units.map(unit => (
-                <option key={unit} value={unit}>{unit}</option>
+                <option key={unit} value={unit} className="bg-gray-800">{unit}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Deadline
             </label>
             <input
@@ -175,7 +175,7 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
               onChange={handleChange}
               required
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-white/5 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             />
           </div>
         </div>
@@ -187,9 +187,9 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
               name="completed"
               checked={formData.completed}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-600 rounded bg-white/5"
             />
-            <label className="ml-2 block text-sm text-gray-700">
+            <label className="ml-2 block text-sm text-gray-300">
               Mark as completed
             </label>
           </div>
@@ -198,7 +198,7 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
         <div className="flex space-x-3 pt-4">
           <button
             type="submit"
-            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
           >
             <FaSave className="mr-2" />
             {isEdit ? 'Update Goal' : 'Create Goal'}
@@ -206,7 +206,7 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
           <button
             type="button"
             onClick={onCancel}
-            className="flex items-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-300 font-semibold"
           >
             <FaTimes className="mr-2" />
             Cancel

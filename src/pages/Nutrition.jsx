@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaAppleAlt, FaFire, FaDrumstickBite, FaBreadSlice, FaCheese } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 function Nutrition() {
   const [query, setQuery] = useState("");
@@ -17,11 +18,13 @@ function Nutrition() {
     if (!query) return;
 
     try {
+      // Use CORS proxy to bypass CORS restrictions
       const res = await fetch(
-        `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=10`
+        `https://api.allorigins.win/get?url=${encodeURIComponent(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=10`)}`
       );
 
-      const data = await res.json();
+      const response = await res.json();
+      const data = JSON.parse(response.contents);
 
       if (data.products && data.products.length > 0) {
         // Filter products that have nutrition data
@@ -42,6 +45,7 @@ function Nutrition() {
       }
     } catch (err) {
       console.error("Error fetching nutrition:", err);
+      toast.error("Failed to fetch nutrition data. Please try again.");
     }
   };
 
@@ -148,7 +152,7 @@ function Nutrition() {
       <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20">
         <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
           <FaAppleAlt className="text-green-500 mr-3" />
-          Search Food Database
+          Search Food 
         </h2>
         <div className="flex gap-4">
           <input

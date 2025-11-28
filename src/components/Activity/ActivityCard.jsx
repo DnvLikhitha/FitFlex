@@ -33,15 +33,15 @@ const ActivityCard = ({ activity, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center space-x-3">
           <div className="text-2xl">
             {getActivityIcon(activity.type)}
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-800">{activity.type}</h3>
-            <div className="flex items-center text-gray-500 text-sm">
+            <h3 className="text-xl font-semibold text-white">{activity.type}</h3>
+            <div className="flex items-center text-gray-300 text-sm">
               <FaCalendar className="mr-1" />
               {formatDate(activity.date)}
             </div>
@@ -50,14 +50,14 @@ const ActivityCard = ({ activity, onEdit, onDelete }) => {
         <div className="flex space-x-2">
           <button
             onClick={() => onEdit(activity)}
-            className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+            className="p-2 text-green-400 hover:bg-green-500/20 rounded-full transition-colors"
             title="Edit activity"
           >
             <FaEdit />
           </button>
           <button
             onClick={() => onDelete(activity.id)}
-            className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
+            className="p-2 text-red-400 hover:bg-red-500/20 rounded-full transition-colors"
             title="Delete activity"
           >
             <FaTrash />
@@ -67,43 +67,43 @@ const ActivityCard = ({ activity, onEdit, onDelete }) => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
         <div className="text-center">
-          <div className="flex items-center justify-center text-gray-500 mb-1">
+          <div className="flex items-center justify-center text-gray-400 mb-1">
             <FaClock className="mr-1" />
           </div>
-          <div className="text-lg font-semibold text-gray-800">{activity.duration}</div>
-          <div className="text-sm text-gray-500">minutes</div>
+          <div className="text-lg font-semibold text-white">{activity.duration}</div>
+          <div className="text-sm text-gray-400">minutes</div>
         </div>
         
         <div className="text-center">
-          <div className="flex items-center justify-center text-gray-500 mb-1">
+          <div className="flex items-center justify-center text-gray-400 mb-1">
             <FaFire className="mr-1" />
           </div>
-          <div className="text-lg font-semibold text-gray-800">{activity.calories}</div>
-          <div className="text-sm text-gray-500">calories</div>
+          <div className="text-lg font-semibold text-white">{activity.calories}</div>
+          <div className="text-sm text-gray-400">calories</div>
         </div>
         
         <div className="text-center">
-          <div className="flex items-center justify-center text-gray-500 mb-1">
+          <div className="flex items-center justify-center text-gray-400 mb-1">
             <FaShoePrints className="mr-1" />
           </div>
-          <div className="text-lg font-semibold text-gray-800">{activity.steps?.toLocaleString() || '0'}</div>
-          <div className="text-sm text-gray-500">steps</div>
+          <div className="text-lg font-semibold text-white">{activity.steps?.toLocaleString() || '0'}</div>
+          <div className="text-sm text-gray-400">steps</div>
         </div>
         
         <div className="text-center">
-          <div className="flex items-center justify-center text-gray-500 mb-1">
+          <div className="flex items-center justify-center text-gray-400 mb-1">
             <FaRunning className="mr-1" />
           </div>
-          <div className="text-lg font-semibold text-gray-800">
+          <div className="text-lg font-semibold text-white">
             {activity.steps ? Math.round(activity.steps / 2000) : 0}
           </div>
-          <div className="text-sm text-gray-500">miles</div>
+          <div className="text-sm text-gray-400">miles</div>
         </div>
       </div>
 
       {activity.notes && (
-        <div className="border-t pt-3">
-          <p className="text-gray-600 text-sm">{activity.notes}</p>
+        <div className="border-t border-gray-700 pt-3">
+          <p className="text-gray-300 text-sm">{activity.notes}</p>
         </div>
       )}
     </div>

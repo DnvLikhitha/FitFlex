@@ -11,7 +11,7 @@ const ActivityList = ({ activities, onAddActivity, onEditActivity, onDeleteActiv
         <p className="text-gray-300 mb-6">Start tracking your fitness journey by logging your first activity!</p>
         <button
           onClick={onAddActivity}
-          className="flex items-center justify-center mx-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 font-semibold"
+          className="flex items-center justify-center mx-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
         >
           <FaPlus className="mr-2" />
           Log First Activity
@@ -26,7 +26,7 @@ const ActivityList = ({ activities, onAddActivity, onEditActivity, onDeleteActiv
         <h2 className="text-2xl font-bold text-white">Your Activities</h2>
         <button
           onClick={onAddActivity}
-          className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 font-semibold"
+          className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold"
         >
           <FaPlus className="mr-2" />
           Log Activity
