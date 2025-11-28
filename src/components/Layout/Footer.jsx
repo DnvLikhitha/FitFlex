@@ -3,7 +3,7 @@ import { FaHeart, FaGithub, FaTwitter, FaInstagram, FaDumbbell } from 'react-ico
 
 const Footer = () => {
   return (
-    <footer className="relative z-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t border-green-500/20 mt-20">
+    <footer className="relative z-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t border-green-500/20 mt-0">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">

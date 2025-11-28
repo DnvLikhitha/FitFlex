@@ -14,54 +14,147 @@
       "id": 1,
       "userId": 1,
       "type": "Running",
-      "duration": 45,
-      "calories": 320,
-      "steps": 6500,
-      "date": "2024-01-15",
-      "notes": "Morning run in the park"
+      "duration": 30,
+      "calories": 300,
+      "steps": 5000,
+      "date": "2025-11-29",
+      "notes": "Morning run"
     },
     {
       "id": 2,
       "userId": 1,
       "type": "Weight Training",
-      "duration": 60,
-      "calories": 280,
-      "steps": 1500,
-      "date": "2024-01-14",
-      "notes": "Chest and triceps day"
+      "duration": 45,
+      "calories": 250,
+      "steps": 0,
+      "date": "2025-11-28",
+      "notes": "Upper body workout"
     },
     {
-      "type": "Walking",
-      "duration": 4,
-      "calories": 11006,
-      "steps": 100,
-      "date": "2025-11-29",
-      "notes": "",
+      "id": 3,
       "userId": 1,
-      "id": 3
+      "type": "Yoga",
+      "duration": 60,
+      "calories": 200,
+      "steps": 0,
+      "date": "2025-11-27",
+      "notes": "Evening yoga session"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "type": "Cycling",
+      "duration": 40,
+      "calories": 320,
+      "steps": 0,
+      "date": "2025-11-26",
+      "notes": "Outdoor cycling"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "type": "Running",
+      "duration": 35,
+      "calories": 350,
+      "steps": 6000,
+      "date": "2025-11-25",
+      "notes": "Evening run"
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "type": "Swimming",
+      "duration": 50,
+      "calories": 400,
+      "steps": 0,
+      "date": "2025-11-24",
+      "notes": "Pool workout"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "type": "Yoga",
+      "duration": 45,
+      "calories": 180,
+      "steps": 0,
+      "date": "2025-11-22",
+      "notes": "Morning stretch"
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "type": "Running",
+      "duration": 25,
+      "calories": 250,
+      "steps": 4500,
+      "date": "2025-11-29",
+      "notes": "Quick afternoon run"
+    },
+    {
+      "id": 10,
+      "userId": 1,
+      "type": "Cycling",
+      "duration": 55,
+      "calories": 450,
+      "steps": 0,
+      "date": "2025-11-21",
+      "notes": "Long distance ride"
     }
   ],
   "goals": [
     {
       "id": 1,
       "userId": 1,
-      "title": "Lose 5kg",
+      "title": "Run 5K Daily",
       "target": 5,
-      "current": 5,
-      "unit": "kg",
-      "type": "weight",
-      "deadline": "2024-03-01",
-      "completed": true
+      "current": 3,
+      "unit": "km",
+      "type": "distance",
+      "deadline": "2025-12-31",
+      "completed": false
     },
     {
       "id": 2,
       "userId": 1,
-      "title": "Run 100km",
-      "target": 100,
-      "current": 79,
-      "unit": "km",
-      "type": "distance",
-      "deadline": "2024-02-28",
+      "title": "Lose 5 kg",
+      "target": 5,
+      "current": 2,
+      "unit": "kg",
+      "type": "weight",
+      "deadline": "2025-12-31",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "title": "30 Days Yoga Challenge",
+      "target": 30,
+      "current": 30,
+      "unit": "days",
+      "type": "activity",
+      "deadline": "2025-11-30",
+      "completed": true
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "Drink 2L Water Daily",
+      "target": 2,
+      "current": 1.5,
+      "unit": "L",
+      "type": "hydration",
+      "deadline": "2025-12-31",
+      "completed": false
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "title": "Burn 500 Calories Daily",
+      "target": 500,
+      "current": 350,
+      "unit": "cal",
+      "type": "calories",
+      "deadline": "2025-12-31",
       "completed": false
     }
   ]
