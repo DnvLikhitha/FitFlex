@@ -111,7 +111,7 @@ const Dashboard = () => {
       </div>
 
       {/* Content Section - Starts below video */}
-      <div className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 space-y-8">
+      <div className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 pb-20 space-y-8">
 
       {/* Activity Form Modal */}
       {showActivityForm && (
