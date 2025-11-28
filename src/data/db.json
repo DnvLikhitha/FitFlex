@@ -29,6 +29,16 @@
       "steps": 1500,
       "date": "2024-01-14",
       "notes": "Chest and triceps day"
+    },
+    {
+      "type": "Walking",
+      "duration": 4,
+      "calories": 11006,
+      "steps": 100,
+      "date": "2025-11-29",
+      "notes": "",
+      "userId": 1,
+      "id": 3
     }
   ],
   "goals": [
