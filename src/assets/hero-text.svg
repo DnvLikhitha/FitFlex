@@ -1,0 +1,24 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7DD3C0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A8E6CF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7DD3C0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C8E6C9;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#DCEDC8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F0F4C3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- WE ARE -->
+  <text x="50%" y="35%" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="80" fill="url(#gradient1)" letter-spacing="0.05em">
+    WE ARE
+  </text>
+  
+  <!-- FitFlex -->
+  <text x="50%" y="70%" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="140" fill="url(#gradient2)" letter-spacing="0.02em">
+    FitFlex
+  </text>
+</svg>

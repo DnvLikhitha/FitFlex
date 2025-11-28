@@ -4,6 +4,7 @@ import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTroph
 import ProgressChart from '../components/Charts/ProgressChart';
 import ActivityForm from '../components/Activity/ActivityForm';
 import { toast } from 'react-toastify';
+import heroText from '../assets/hero-text.svg';
 
 const Dashboard = () => {
   const [activities, setActivities] = useState([]);
@@ -76,36 +77,34 @@ const Dashboard = () => {
           <source src="https://cdn-images.cure.fit/www-curefit-com/video/upload/w_1400,ar_1.77,q_auto:eco,f_auto,dpr_2,vc_auto/video/test/we-are-cult-web.mp4" type="video/mp4" />
         </video>
         
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+        {/* Subtle Dark Overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
-      {/* Hero Content */}
-      <div className="relative h-screen flex items-center px-12 z-10">
-        <div className="max-w-4xl">
-          <h1 className="text-8xl font-black mb-6 leading-tight animate-slide-up">
-            <span className="text-green-300 animate-float">WE ARE</span>
-            <br />
-            <span className="bg-gradient-to-r from-green-300 via-green-400 to-yellow-300 bg-clip-text text-transparent animate-gradient">FitFlex</span>
-          </h1>
-          <p className="text-2xl text-white font-semibold mb-10 max-w-2xl leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
+      {/* Hero Content with Image Overlay */}
+      <div className="relative h-screen flex flex-col items-center justify-center px-12 z-10">
+        {/* Gradient Text Image */}
+        <div className="mb-12 animate-slide-up">
+          <img 
+            src={heroText} 
+            alt="WE ARE FitFlex" 
+            className="w-full max-w-5xl mx-auto animate-float"
+            style={{filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'}}
+          />
+        </div>
+        
+        {/* Tagline and CTA */}
+        <div className="text-center max-w-3xl">
+          <p className="text-2xl text-white font-semibold mb-10 leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
             A fitness movement that is worth breaking a sweat for
           </p>
-          <div className="flex gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
+          <div className="flex justify-center gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
             <button
               onClick={() => setShowActivityForm(true)}
               className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
             >
               <span className="relative z-10">Join Now</span>
               <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-            <button className="flex items-center gap-3 px-8 py-5 bg-white/5 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-xl border border-white/10 hover:border-white/30 hover:scale-105 group">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </div>
-              Watch Video
             </button>
           </div>
         </div>
