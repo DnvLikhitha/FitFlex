@@ -66,13 +66,15 @@ const Dashboard = () => {
     <div className="space-y-8">
       {/* Hero Section - Full Width */}
       <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[650px] bg-gradient-to-br from-gray-900 via-green-900 to-gray-900">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1920)',
-          }}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         >
-        </div>
+          <source src="https://cdn-images.cure.fit/www-curefit-com/video/upload/w_1400,ar_1.77,q_auto:eco,f_auto,dpr_2,vc_auto/video/test/we-are-cult-web.mp4" type="video/mp4" />
+        </video>
         
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
