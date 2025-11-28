@@ -64,8 +64,8 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* Hero Section - Full Screen minus header */}
-      <div className="relative w-full" style={{ height: 'calc(100vh - 80px)' }}>
+      {/* Hero Section - Full Screen with video behind navbar */}
+      <div className="fixed top-0 left-0 w-full h-screen z-0">
         <video 
           autoPlay 
           loop 
@@ -78,41 +78,41 @@ const Dashboard = () => {
         
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
-        
-        <div className="absolute inset-0 flex items-center px-12">
-          <div className="max-w-4xl">
-            <h1 className="text-8xl font-black mb-6 leading-tight animate-slide-up">
-              <span className="text-green-300 animate-float">WE ARE</span>
-              <br />
-              <span className="bg-gradient-to-r from-green-300 via-green-400 to-yellow-300 bg-clip-text text-transparent animate-gradient">FitFlex</span>
-            </h1>
-            <p className="text-2xl text-white font-semibold mb-10 max-w-2xl leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
-              A fitness movement that is worth breaking a sweat for
-            </p>
-            <div className="flex gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
-              <button
-                onClick={() => setShowActivityForm(true)}
-                className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
-              >
-                <span className="relative z-10">Join Now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
-              <button className="flex items-center gap-3 px-8 py-5 bg-white/5 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-xl border border-white/10 hover:border-white/30 hover:scale-105 group">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-                Watch Video
-              </button>
-            </div>
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative h-screen flex items-center px-12 z-10">
+        <div className="max-w-4xl">
+          <h1 className="text-8xl font-black mb-6 leading-tight animate-slide-up">
+            <span className="text-green-300 animate-float">WE ARE</span>
+            <br />
+            <span className="bg-gradient-to-r from-green-300 via-green-400 to-yellow-300 bg-clip-text text-transparent animate-gradient">FitFlex</span>
+          </h1>
+          <p className="text-2xl text-white font-semibold mb-10 max-w-2xl leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
+            A fitness movement that is worth breaking a sweat for
+          </p>
+          <div className="flex gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
+            <button
+              onClick={() => setShowActivityForm(true)}
+              className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
+            >
+              <span className="relative z-10">Join Now</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+            <button className="flex items-center gap-3 px-8 py-5 bg-white/5 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-xl border border-white/10 hover:border-white/30 hover:scale-105 group">
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              Watch Video
+            </button>
           </div>
         </div>
       </div>
 
       {/* Content Section - Starts below video */}
-      <div className="relative">
-        <div className="bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 space-y-8">
+      <div className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 space-y-8">
 
       {/* Activity Form Modal */}
       {showActivityForm && (
@@ -203,7 +203,6 @@ const Dashboard = () => {
         </div>
       </div>
       </div>
-      </div>
     </>
   );
 };
@@ -216,7 +215,7 @@ const DoughnutChart = ({ activities }) => {
   }, {});
 
   const total = activities.length || 1;
-  const colors = ['#22c55e', '#10b981', '#059669', '#047857', '#065f46'];
+  const colors = ['#73795D', '#8f9683', '#abb0a2', '#646a50', '#545943'];
   
   return (
     <div className="flex flex-col items-center">
@@ -248,16 +247,16 @@ const DoughnutChart = ({ activities }) => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <div className="text-3xl font-black text-white">{activities.length}</div>
-            <div className="text-xs text-gray-400">Total</div>
+            <div className="text-xs text-accent-300">Total</div>
           </div>
         </div>
       </div>
       <div className="space-y-2 w-full">
         {Object.entries(activityTypes).map(([type, count], index) => (
-          <div key={type} className="flex items-center justify-between text-sm group hover:bg-white/5 p-2 rounded transition-all">
+          <div key={type} className="flex items-center justify-between text-sm group hover:bg-green-500/5 p-2 rounded transition-all">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors[index % colors.length] }}></div>
-              <span className="text-gray-300 group-hover:text-white transition-colors">{type}</span>
+              <span className="text-accent-300 group-hover:text-white transition-colors">{type}</span>
             </div>
             <span className="text-white font-semibold">{count}</span>
           </div>
@@ -282,7 +281,7 @@ const GoalsRingChart = ({ goals }) => {
             cy="50"
             r="40"
             fill="none"
-            stroke="#374151"
+            stroke="#3D4F5A"
             strokeWidth="12"
           />
           <circle

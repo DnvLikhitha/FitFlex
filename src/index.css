@@ -8,9 +8,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #3a3a3a 100%);
+  background: linear-gradient(135deg, #2E2C26 0%, #3D4F5A 50%, #2E2C26 100%);
   min-height: 100vh;
-  color: #ffffff;
+  color: #E2DECE;
 }
 
 /* Custom scrollbar */
@@ -20,24 +20,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #2E2C26;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(180deg, #73795D 0%, #646a50 100%);
   border-radius: 10px;
-  border: 2px solid #1a1a1a;
+  border: 2px solid #2E2C26;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
+  background: linear-gradient(180deg, #8f9683 0%, #73795D 100%);
 }
 
 /* Loading spinner */
 .loading-spinner {
-  border: 3px solid #1e293b;
-  border-top: 3px solid #22c55e;
+  border: 3px solid #3D4F5A;
+  border-top: 3px solid #73795D;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -198,10 +198,10 @@ body {
 /* Glow effect */
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(34, 197, 94, 0.5), 0 0 10px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 0 5px rgba(115, 121, 93, 0.5), 0 0 10px rgba(115, 121, 93, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 20px rgba(115, 121, 93, 0.8), 0 0 30px rgba(115, 121, 93, 0.5);
   }
 }
 
