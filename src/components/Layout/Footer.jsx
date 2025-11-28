@@ -13,10 +13,10 @@ const Footer = () => {
               </div>
               <div>
                 <span className="text-2xl font-bold text-white">
-                  FitCore
+                  FitFlex
                 </span>
                 <div className="text-xs text-green-400 font-medium tracking-wider">
-                  Fitness & Wellness
+                  REFRESH YOUR FITNESS
                 </div>
               </div>
             </div>
@@ -24,13 +24,13 @@ const Footer = () => {
               Your ultimate fitness companion. Track workouts, set goals, and achieve your fitness dreams with our intuitive tracking platform.
             </p>
             <div className="flex space-x-3">
-              <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
                 <FaGithub className="text-xl text-gray-300 hover:text-green-400" />
               </a>
-              <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
                 <FaTwitter className="text-xl text-gray-300 hover:text-green-400" />
               </a>
-              <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-800 rounded-xl hover:bg-green-500/20 transition-colors border border-green-500/20">
                 <FaInstagram className="text-xl text-gray-300 hover:text-green-400" />
               </a>
             </div>
@@ -39,20 +39,20 @@ const Footer = () => {
           <div>
             <h3 className="font-bold text-lg mb-4 text-white">Features</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-green-400 transition-colors">Activity Tracking</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Goal Setting</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Progress Analytics</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Workout History</a></li>
+              <li><a href="/activities" className="hover:text-green-400 transition-colors">Activity Tracking</a></li>
+              <li><a href="/goals" className="hover:text-green-400 transition-colors">Goal Setting</a></li>
+              <li><a href="/" className="hover:text-green-400 transition-colors">Progress Analytics</a></li>
+              <li><a href="/history" className="hover:text-green-400 transition-colors">Workout History</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-bold text-lg mb-4 text-white">Support</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-green-400 transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Terms of Service</a></li>
+              <li><a href="/profile" className="hover:text-green-400 transition-colors">Help Center</a></li>
+              <li><a href="/profile" className="hover:text-green-400 transition-colors">Contact Us</a></li>
+              <li><a href="/profile" className="hover:text-green-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/profile" className="hover:text-green-400 transition-colors">Terms of Service</a></li>
             </ul>
           </div>
         </div>
@@ -62,7 +62,7 @@ const Footer = () => {
             Made with <FaHeart className="text-green-500 mx-2" /> for fitness enthusiasts worldwide
           </p>
           <p className="text-gray-500">
-            &copy; 2025 FitCore. All rights reserved.
+            &copy; 2025 FitFlex. All rights reserved.
           </p>
         </div>
       </div>
