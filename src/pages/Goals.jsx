@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import GoalForm from '../components/Goals/GoalForm';
 import GoalList from '../components/Goals/GoalList';
-import { FaTarget, FaTrophy, FaFire, FaChartLine } from 'react-icons/fa';
+import { FaBullseye, FaTrophy, FaFire, FaChartLine } from 'react-icons/fa';
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -130,7 +130,7 @@ const Goals = () => {
           <div className="flex items-center justify-between mb-2">
             <span className="text-gray-400 text-sm">Total Goals</span>
             <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-              <FaTarget className="text-white" />
+              <FaBullseye className="text-white" />
             </div>
           </div>
           <div className="text-3xl font-black text-white">{stats.totalGoals}</div>

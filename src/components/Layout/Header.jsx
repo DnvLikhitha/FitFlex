@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 sticky top-0 z-50 border-b border-green-500/20 shadow-lg">
+    <header className="bg-gray-900/80 backdrop-blur-lg sticky top-0 z-50 border-b border-green-500/20 shadow-lg">
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center space-x-3 group">
@@ -24,7 +24,7 @@ const Header = () => {
             </div>
             <div>
               <span className="text-2xl font-bold text-white">
-                FitCore
+                FitFlex
               </span>
               <div className="text-xs text-green-400 font-medium tracking-wider">
                 REFRESH YOUR FITNESS
