@@ -4,9 +4,19 @@
       "id": 1,
       "name": "Bill Gates",
       "email": "Bill@gmail.com",
+      "password": "Bill123@",
       "age": "78",
       "weight": 75,
       "height": "230"
+    },
+    {
+      "name": "Likhitha",
+      "email": "Likhitha@gmail.com",
+      "password": "Likhitha123@",
+      "age": "20",
+      "weight": "1000",
+      "height": "200",
+      "id": 2
     }
   ],
   "activities": [

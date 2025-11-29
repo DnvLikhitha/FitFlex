@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTrophy, FaFire } from 'react-icons/fa';
 import ProgressChart from '../components/Charts/ProgressChart';
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify';
 import heroText from '../assets/hero-text.svg';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [goals, setGoals] = useState([]);
   const [showActivityForm, setShowActivityForm] = useState(false);
@@ -100,7 +102,7 @@ const Dashboard = () => {
           </p>
           <div className="flex justify-center gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
             <button
-              onClick={() => setShowActivityForm(true)}
+              onClick={() => navigate('/signup')}
               className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
             >
               <span className="relative z-10">Join Now</span>
