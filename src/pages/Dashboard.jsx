@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTrophy, FaFire } from 'react-icons/fa';
 import ProgressChart from '../components/Charts/ProgressChart';
@@ -9,14 +9,19 @@ import heroText from '../assets/hero-text.svg';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activities, setActivities] = useState([]);
   const [goals, setGoals] = useState([]);
   const [showActivityForm, setShowActivityForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchData();
-  }, []);
+    // Check if user is logged in
+    const userId = localStorage.getItem('currentUserId');
+    setIsLoggedIn(!!userId);
+  }, [location]); // Re-check whenever location changes (e.g., after logout redirect)
 
   const fetchData = async () => {
     try {
@@ -100,15 +105,17 @@ const Dashboard = () => {
           <p className="text-2xl text-white font-semibold mb-10 leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
             A fitness movement that is worth breaking a sweat for
           </p>
-          <div className="flex justify-center gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
-            <button
-              onClick={() => navigate('/signup')}
-              className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
-            >
-              <span className="relative z-10">Join Now</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-          </div>
+          {!isLoggedIn && (
+            <div className="flex justify-center gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
+              <button
+                onClick={() => navigate('/signup')}
+                className="px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 font-bold text-xl animate-glow relative overflow-hidden group"
+              >
+                <span className="relative z-10">Join Now</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
