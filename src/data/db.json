@@ -17,6 +17,15 @@
       "weight": "1000",
       "height": "200",
       "id": 2
+    },
+    {
+      "name": "Surya",
+      "email": "surya@gmail.c",
+      "password": "fgmn",
+      "age": "12",
+      "weight": "12",
+      "height": "12",
+      "id": 3
     }
   ],
   "activities": [

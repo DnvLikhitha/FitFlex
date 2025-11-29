@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaSave, FaTimes } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
 
 const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
+  const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     title: '',
     type: '',
@@ -36,10 +38,16 @@ const GoalForm = ({ goal, onSave, onCancel, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!currentUser) {
+      toast.error('Please log in to add goals');
+      return;
+    }
+    
     try {
       const goalData = {
         ...formData,
-        userId: 1, // Default user ID
+        userId: currentUser.id,
         target: parseFloat(formData.target),
         current: isEdit ? goal.current : 0
       };

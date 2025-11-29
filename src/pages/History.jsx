@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaCalendar, FaFilter, FaRunning, FaFire, FaShoePrints, FaClock } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const History = () => {
+  const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [filter, setFilter] = useState('all');
   const [dateRange, setDateRange] = useState({
@@ -13,17 +15,22 @@ const History = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchActivities();
-  }, []);
+    if (currentUser) {
+      fetchActivities();
+    } else {
+      setActivities([]);
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   const fetchActivities = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/activities');
+      const response = await axios.get(`http://localhost:3001/activities?userId=${currentUser.id}`);
       setActivities(response.data);
     } catch (error) {
-      // Silently handle error for frontend-only mode
+      toast.error('Failed to load activities');
+      console.error('Error fetching activities:', error);
       setActivities([]);
-      console.log('Running in frontend-only mode');
     } finally {
       setLoading(false);
     }

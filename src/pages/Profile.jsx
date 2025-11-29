@@ -2,35 +2,29 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaUser, FaEnvelope, FaWeight, FaRulerVertical, FaBirthdayCake, FaSave, FaEdit } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
+  const { currentUser } = useAuth();
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (currentUser) {
+      fetchUser();
+    }
+  }, [currentUser]);
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/users/1');
+      const response = await axios.get(`http://localhost:3001/users/${currentUser.id}`);
       setUser(response.data);
       setFormData(response.data);
     } catch (error) {
-      // Silently handle error for frontend-only mode
-      const defaultUser = {
-        id: 1,
-        name: 'John Doe',
-        email: 'john@example.com',
-        age: 28,
-        weight: 75,
-        height: 180
-      };
-      setUser(defaultUser);
-      setFormData(defaultUser);
-      console.log('Running in frontend-only mode');
+      toast.error('Failed to load profile data');
+      console.error('Error fetching user:', error);
     } finally {
       setLoading(false);
     }
@@ -45,16 +39,13 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:3001/users/1`, formData);
+      await axios.put(`http://localhost:3001/users/${currentUser.id}`, formData);
       setUser(formData);
       setIsEditing(false);
       toast.success('Profile updated successfully!');
     } catch (error) {
-      // Silently handle error for frontend-only mode - still update locally
-      setUser(formData);
-      setIsEditing(false);
-      toast.success('Profile updated successfully!');
-      console.log('Running in frontend-only mode');
+      toast.error('Failed to update profile');
+      console.error('Error updating user:', error);
     }
   };
 

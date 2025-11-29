@@ -4,31 +4,45 @@ import { toast } from 'react-toastify';
 import GoalForm from '../components/Goals/GoalForm';
 import GoalList from '../components/Goals/GoalList';
 import { FaBullseye, FaTrophy, FaFire, FaChartLine } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Goals = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [goals, setGoals] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingGoal, setEditingGoal] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchGoals();
-  }, []);
+    if (currentUser) {
+      fetchGoals();
+    } else {
+      setGoals([]);
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   const fetchGoals = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/goals');
+      const response = await axios.get(`http://localhost:3001/goals?userId=${currentUser.id}`);
       setGoals(response.data);
     } catch (error) {
-      // Silently handle error for frontend-only mode
+      toast.error('Failed to load goals');
+      console.error('Error fetching goals:', error);
       setGoals([]);
-      console.log('Running in frontend-only mode');
     } finally {
       setLoading(false);
     }
   };
 
   const handleAddGoal = () => {
+    if (!currentUser) {
+      toast.info('Please sign in to create goals');
+      navigate('/login');
+      return;
+    }
     setEditingGoal(null);
     setShowForm(true);
   };

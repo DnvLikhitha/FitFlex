@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -47,9 +49,7 @@ const Login = () => {
         return;
       }
 
-      // Store user ID and name in localStorage
-      localStorage.setItem('currentUserId', user.id);
-      localStorage.setItem('currentUserName', user.name);
+      login(user);
 
       toast.success(`Welcome back, ${user.name}!`);
       

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaSave, FaTimes } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
 
 const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
+  const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     type: '',
     duration: '',
@@ -35,10 +37,16 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!currentUser) {
+      toast.error('Please log in to add activities');
+      return;
+    }
+    
     try {
       const activityData = {
         ...formData,
-        userId: 1, // Default user ID
+        userId: currentUser.id,
         duration: parseInt(formData.duration),
         calories: parseInt(formData.calories),
         steps: parseInt(formData.steps)
@@ -66,28 +74,8 @@ const ActivityForm = ({ activity, onSave, onCancel, isEdit = false }) => {
         notes: ''
       });
     } catch (error) {
-      // Silently handle error for frontend-only mode
-      // Create a fallback saved activity object and pass it up so parent can persist to localStorage
-      const fallbackActivity = {
-        id: isEdit && activity && activity.id ? activity.id : Date.now(),
-        ...formData,
-        userId: 1,
-        duration: parseInt(formData.duration) || 0,
-        calories: parseInt(formData.calories) || 0,
-        steps: parseInt(formData.steps) || 0
-      };
-
-      toast.success(isEdit ? 'Activity updated locally (offline).' : 'Activity logged locally (offline).');
-      onSave && onSave(fallbackActivity);
-      setFormData({
-        type: '',
-        duration: '',
-        calories: '',
-        steps: '',
-        date: new Date().toISOString().split('T')[0],
-        notes: ''
-      });
-      console.log('Running in frontend-only mode');
+      toast.error('Failed to save activity');
+      console.error('Error saving activity:', error);
     }
   };
 

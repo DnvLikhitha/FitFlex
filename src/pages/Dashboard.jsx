@@ -1,41 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTrophy, FaFire } from 'react-icons/fa';
 import ProgressChart from '../components/Charts/ProgressChart';
 import ActivityForm from '../components/Activity/ActivityForm';
 import { toast } from 'react-toastify';
 import heroText from '../assets/hero-text.svg';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [goals, setGoals] = useState([]);
   const [showActivityForm, setShowActivityForm] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetchData();
-    // Check if user is logged in
-    const userId = localStorage.getItem('currentUserId');
-    setIsLoggedIn(!!userId);
-  }, [location]); // Re-check whenever location changes (e.g., after logout redirect)
+    if (currentUser) {
+      fetchData();
+    } else {
+      setActivities([]);
+      setGoals([]);
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   const fetchData = async () => {
     try {
       const [activitiesRes, goalsRes] = await Promise.all([
-        axios.get('http://localhost:3001/activities'),
-        axios.get('http://localhost:3001/goals')
+        axios.get(`http://localhost:3001/activities?userId=${currentUser.id}`),
+        axios.get(`http://localhost:3001/goals?userId=${currentUser.id}`)
       ]);
       setActivities(activitiesRes.data);
       setGoals(goalsRes.data);
     } catch (error) {
-      // Silently handle error for frontend-only mode
+      toast.error('Failed to load dashboard data');
+      console.error('Error fetching dashboard data:', error);
       setActivities([]);
       setGoals([]);
-      console.log('Running in frontend-only mode');
     } finally {
       setLoading(false);
     }
@@ -105,7 +108,7 @@ const Dashboard = () => {
           <p className="text-2xl text-white font-semibold mb-10 leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
             A fitness movement that is worth breaking a sweat for
           </p>
-          {!isLoggedIn && (
+          {!currentUser && (
             <div className="flex justify-center gap-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
               <button
                 onClick={() => navigate('/signup')}

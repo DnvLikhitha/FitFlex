@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaUser, FaEnvelope, FaLock, FaWeight, FaRuler, FaCalendar } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,8 +34,15 @@ const SignUp = () => {
       return;
     }
 
-    if (!formData.email.includes('@')) {
-      toast.error('Please enter a valid email');
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      toast.error('Password must be at least 8 characters with uppercase, lowercase, number, and special character');
       return;
     }
 
@@ -61,9 +70,7 @@ const SignUp = () => {
 
       const createResponse = await axios.post('http://localhost:3001/users', newUser);
       
-      // Store user ID in localStorage
-      localStorage.setItem('currentUserId', createResponse.data.id);
-      localStorage.setItem('currentUserName', createResponse.data.name);
+      login(createResponse.data);
 
       toast.success('Sign up successful! Welcome to FitFlex!');
       

@@ -1,32 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaRunning, FaFlag, FaHistory, FaUser, FaDumbbell, FaAppleAlt, FaSignOutAlt } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    // Check if user is logged in by checking localStorage
-    const userId = localStorage.getItem('currentUserId');
-    const name = localStorage.getItem('currentUserName');
-    
-    if (userId && name) {
-      setIsLoggedIn(true);
-      setUserName(name);
-    } else {
-      setIsLoggedIn(false);
-      setUserName('');
-    }
-  }, [location]); // Re-check whenever route changes
+  const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('currentUserId');
-    localStorage.removeItem('currentUserName');
-    setIsLoggedIn(false);
-    setUserName('');
+    logout();
+    toast.success('Logged out successfully');
     navigate('/');
   };
 
@@ -81,10 +66,10 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center space-x-3 animate-fade-in" style={{animationDelay: '0.6s'}}>
-            {isLoggedIn ? (
+            {currentUser ? (
               <>
                 <div className="text-white font-semibold text-sm px-4 py-2 bg-green-500/20 rounded-lg border border-green-500/30">
-                  Welcome, {userName}
+                  Welcome, {currentUser.name}
                 </div>
                 <button 
                   onClick={handleLogout}

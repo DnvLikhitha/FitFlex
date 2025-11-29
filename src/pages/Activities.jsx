@@ -4,42 +4,45 @@ import { toast } from 'react-toastify';
 import ActivityForm from '../components/Activity/ActivityForm';
 import ActivityList from '../components/Activity/ActivityList';
 import { FaRunning, FaBolt, FaFire, FaTrophy } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Activities = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingActivity, setEditingActivity] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchActivities();
-  }, []);
+    if (currentUser) {
+      fetchActivities();
+    } else {
+      setActivities([]);
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   const fetchActivities = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/activities');
+      const response = await axios.get(`http://localhost:3001/activities?userId=${currentUser.id}`);
       setActivities(response.data);
-      // keep local cache in sync
-      try { localStorage.setItem('activities', JSON.stringify(response.data)); } catch (e) {}
     } catch (error) {
-      // Silently handle error for frontend-only mode - load from localStorage if available
-      const stored = localStorage.getItem('activities');
-      if (stored) {
-        try {
-          setActivities(JSON.parse(stored));
-        } catch (e) {
-          setActivities([]);
-        }
-      } else {
-        setActivities([]);
-      }
-      console.log('Running in frontend-only mode');
+      toast.error('Failed to load activities');
+      console.error('Error fetching activities:', error);
+      setActivities([]);
     } finally {
       setLoading(false);
     }
   };
 
   const handleAddActivity = () => {
+    if (!currentUser) {
+      toast.info('Please sign in to log activities');
+      navigate('/login');
+      return;
+    }
     setEditingActivity(null);
     setShowForm(true);
   };

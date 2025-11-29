@@ -18,41 +18,115 @@ function Nutrition() {
     if (!query) return;
 
     try {
-      // Use CORS proxy to bypass CORS restrictions
-      const res = await fetch(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=10`)}`
-      );
+      const API_KEY = "80481f65007a4c418bc3cfceb9d3aa03";
+      
+      const searchUrl = `https://api.spoonacular.com/food/products/search?query=${query}&number=5&apiKey=${API_KEY}`;
+      const searchRes = await fetch(searchUrl);
+      const searchData = await searchRes.json();
 
-      const response = await res.json();
-      const data = JSON.parse(response.contents);
-
-      if (data.products && data.products.length > 0) {
-        // Filter products that have nutrition data
-        const validProducts = data.products.filter(p => 
-          p.product_name && p.nutriments && p.nutriments["energy-kcal_100g"]
-        );
-        
-        if (validProducts.length === 1) {
-          // If only one result, show it directly
-          setNutrition(validProducts[0]);
-          setShowResults(false);
-        } else if (validProducts.length > 1) {
-          // Show multiple results to choose from
-          setSearchResults(validProducts);
-          setShowResults(true);
-          setNutrition(null);
-        }
+      if (searchData.status === "failure") {
+        toast.error(searchData.message || "API error occurred");
+        return;
       }
+
+      if (!searchData.products || searchData.products.length === 0) {
+        toast.error(`No nutrition found for: ${query}`);
+        return;
+      }
+
+      if (searchData.products.length > 1) {
+        const validProducts = searchData.products.map(p => ({
+          id: p.id,
+          product_name: p.title,
+          brands: p.brand || "",
+          image_url: p.image,
+          nutriments: {
+            "energy-kcal_100g": Math.round((p.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount || 0) * (100 / (p.servingSize || 100)))
+          }
+        }));
+        setSearchResults(validProducts);
+        setShowResults(true);
+        setNutrition(null);
+        return;
+      }
+
+      const product = searchData.products[0];
+      const nutrients = product.nutrition?.nutrients || [];
+      const servingSize = product.servingSize || 100;
+      const multiplier = 100 / servingSize;
+
+      const calories = (nutrients.find(n => n.name === "Calories")?.amount || 0) * multiplier;
+      const protein = (nutrients.find(n => n.name === "Protein")?.amount || 0) * multiplier;
+      const carbs = (nutrients.find(n => n.name === "Carbohydrates")?.amount || 0) * multiplier;
+      const fat = (nutrients.find(n => n.name === "Fat")?.amount || 0) * multiplier;
+      const sugar = (nutrients.find(n => n.name === "Sugar")?.amount || 0) * multiplier;
+      const fiber = (nutrients.find(n => n.name === "Fiber")?.amount || 0) * multiplier;
+      const sodium = (nutrients.find(n => n.name === "Sodium")?.amount || 0) * multiplier / 1000;
+      const saturatedFat = (nutrients.find(n => n.name === "Saturated Fat")?.amount || 0) * multiplier;
+
+      setNutrition({
+        product_name: product.title,
+        image_url: product.image,
+        brands: product.brand,
+        nutriments: {
+          "energy-kcal_100g": Math.round(calories),
+          proteins_100g: Math.round(protein * 10) / 10,
+          carbohydrates_100g: Math.round(carbs * 10) / 10,
+          fat_100g: Math.round(fat * 10) / 10,
+          sugars_100g: Math.round(sugar * 10) / 10,
+          fiber_100g: Math.round(fiber * 10) / 10,
+          sodium_100g: Math.round(sodium * 100) / 100,
+          "saturated-fat_100g": Math.round(saturatedFat * 10) / 10
+        }
+      });
+      setShowResults(false);
     } catch (err) {
       console.error("Error fetching nutrition:", err);
       toast.error("Failed to fetch nutrition data. Please try again.");
     }
   };
 
-  const selectProduct = (product) => {
-    setNutrition(product);
-    setShowResults(false);
-    setSearchResults([]);
+  const selectProduct = async (product) => {
+    try {
+      const API_KEY = "80481f65007a4c418bc3cfceb9d3aa03";
+      const infoUrl = `https://api.spoonacular.com/food/products/${product.id}?apiKey=${API_KEY}`;
+      const infoRes = await fetch(infoUrl);
+      const infoData = await infoRes.json();
+
+      const nutrients = infoData.nutrition?.nutrients || [];
+      const servingSize = infoData.servingSize || 100;
+      const multiplier = 100 / servingSize;
+
+      const calories = (nutrients.find(n => n.name === "Calories")?.amount || 0) * multiplier;
+      const protein = (nutrients.find(n => n.name === "Protein")?.amount || 0) * multiplier;
+      const carbs = (nutrients.find(n => n.name === "Carbohydrates")?.amount || 0) * multiplier;
+      const fat = (nutrients.find(n => n.name === "Fat")?.amount || 0) * multiplier;
+      const sugar = (nutrients.find(n => n.name === "Sugar")?.amount || 0) * multiplier;
+      const fiber = (nutrients.find(n => n.name === "Fiber")?.amount || 0) * multiplier;
+      const sodium = (nutrients.find(n => n.name === "Sodium")?.amount || 0) * multiplier / 1000;
+      const saturatedFat = (nutrients.find(n => n.name === "Saturated Fat")?.amount || 0) * multiplier;
+
+      setNutrition({
+        product_name: infoData.title,
+        image_url: infoData.image,
+        brands: infoData.brand,
+        nutriments: {
+          "energy-kcal_100g": Math.round(calories),
+          proteins_100g: Math.round(protein * 10) / 10,
+          carbohydrates_100g: Math.round(carbs * 10) / 10,
+          fat_100g: Math.round(fat * 10) / 10,
+          sugars_100g: Math.round(sugar * 10) / 10,
+          fiber_100g: Math.round(fiber * 10) / 10,
+          sodium_100g: Math.round(sodium * 100) / 100,
+          "saturated-fat_100g": Math.round(saturatedFat * 10) / 10
+        }
+      });
+      setShowResults(false);
+      setSearchResults([]);
+    } catch (err) {
+      console.error("Error fetching product details:", err);
+      toast.error("Failed to fetch product details. Please try again.");
+    }
   };
 
   const dailyGoals = {
