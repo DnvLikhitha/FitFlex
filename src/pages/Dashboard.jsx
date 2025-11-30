@@ -179,7 +179,7 @@ const Dashboard = () => {
           <img 
             src={heroText} 
             alt="WE ARE FitFlex" 
-            className="w-full max-w-5xl mx-auto animate-float"
+            className="w-full max-w-5xl mx-auto animate-float-gentle"
             style={{filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'}}
           />
         </div>
@@ -220,50 +220,50 @@ const Dashboard = () => {
 
       {/* Stats & Charts Section */}
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Progress Chart Section - Interactive Weekly Analytics */}
+        <div className="mt-12 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 border border-green-500/20 shadow-lg hover:shadow-green-500/30 transition-all duration-300 animate-fade-up-bounce animate-glow-pulse">
+          <h2 className="text-3xl font-bold text-white mb-8 flex items-center">
+            <FaChartLine className="mr-4 text-green-400 text-2xl animate-sway" />
+            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Weekly Analytics & Performance</span>
+          </h2>
+          <ProgressChart activities={activities} />
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
           {/* Activity Distribution Doughnut Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-scale-up-bounce animate-card-hover-float group">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
-              <FaRunning className="mr-3 text-green-400 animate-bounce-slow group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
+              <FaRunning className="mr-3 text-green-400 animate-icon-bounce-rotate group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
               Activity Distribution
             </h3>
             <DoughnutChart activities={activities} />
           </div>
 
           {/* Goals Progress Ring Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.1s'}}>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-wave-in stagger-2 animate-card-hover-float group">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-amber-400 group-hover:bg-clip-text transition-all duration-300">
-              <FaTrophy className="mr-3 text-green-400 animate-bounce-slow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+              <FaTrophy className="mr-3 text-green-400 animate-icon-bounce-rotate group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
               Goals Progress
             </h3>
             <GoalsRingChart goals={goals} />
           </div>
 
           {/* Calories Burned Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.2s'}}>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-flip-in stagger-3 animate-card-hover-float group">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-400 group-hover:to-orange-400 group-hover:bg-clip-text transition-all duration-300">
-              <FaFire className="mr-3 text-green-400 animate-bounce-slow group-hover:animate-pulse transition-all" />
+              <FaFire className="mr-3 text-green-400 animate-pulse-scale group-hover:animate-pulse transition-all" />
               Weekly Calories
             </h3>
             <CaloriesBarChart activities={activities} />
           </div>
         </div>
 
-        {/* Weekly Activity Chart */}
-        <div className="mt-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.3s'}}>
-          <h3 className="text-2xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
-            <FaCalendar className="mr-3 text-green-400 animate-bounce-slow group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
-            Weekly Activity Overview
-          </h3>
-          <WeeklyActivityChart activities={activities} />
-        </div>
-
         {/* Daily Nutrition & Calories Section */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Calories Consumed */}
-          <div className="bg-gradient-to-br from-green-900/40 to-gray-900 rounded-2xl p-6 border border-green-500/30 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group">
+          <div className="bg-gradient-to-br from-green-900/40 to-gray-900 rounded-2xl p-6 border border-green-500/30 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-smooth-reveal animate-rainbow-border group">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
-              <FaAppleAlt className="mr-3 text-green-400 group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
+              <FaAppleAlt className="mr-3 text-green-400 animate-float-gentle group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
               Daily Calories Consumed
             </h3>
             <div className="flex items-end justify-between group-hover:opacity-95 transition-opacity">
@@ -286,9 +286,9 @@ const Dashboard = () => {
           </div>
 
           {/* Calories Burned */}
-          <div className="bg-gradient-to-br from-orange-900/40 to-gray-900 rounded-2xl p-6 border border-orange-500/30 shadow-lg hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.1s'}}>
+          <div className="bg-gradient-to-br from-orange-900/40 to-gray-900 rounded-2xl p-6 border border-orange-500/30 shadow-lg hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-in-right-bounce stagger-2 animate-rainbow-border group">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-red-400 group-hover:bg-clip-text transition-all duration-300">
-              <FaFire className="mr-3 text-orange-400 group-hover:animate-pulse transition-all" />
+              <FaFire className="mr-3 text-orange-400 animate-pulse-scale group-hover:animate-pulse transition-all" />
               Daily Calories Burned
             </h3>
             <div className="flex items-end justify-between group-hover:opacity-95 transition-opacity">
@@ -313,18 +313,11 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Progress Chart Section - Interactive Weekly Analytics */}
-        <div className="mt-12 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 border border-green-500/20 shadow-lg hover:shadow-green-500/30 transition-all duration-300 animate-slide-up" style={{animationDelay: '0.5s'}}>
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center">
-            <FaChartLine className="mr-4 text-green-400 text-2xl animate-bounce-slow" />
-            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Weekly Analytics & Performance</span>
-          </h2>
-          <ProgressChart activities={activities} />
-        </div>
+        
 
         {/* Stats Cards */}
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in">
-          <div className="animate-zoom-in" style={{animationDelay: '0.4s'}}>
+          <div className="animate-elastic-bounce stagger-1">
             <StatsCard 
               icon={<FaDumbbell />}
               value={stats.totalWorkouts}
@@ -332,7 +325,7 @@ const Dashboard = () => {
               color="green"
             />
           </div>
-          <div className="animate-zoom-in" style={{animationDelay: '0.5s'}}>
+          <div className="animate-elastic-bounce stagger-3">
             <StatsCard 
               icon={<FaBolt />}
               value={stats.todayDuration}
@@ -340,7 +333,7 @@ const Dashboard = () => {
               color="blue"
             />
           </div>
-          <div className="animate-zoom-in" style={{animationDelay: '0.6s'}}>
+          <div className="animate-elastic-bounce stagger-5">
             <StatsCard 
               icon={<FaFire />}
               value={stats.todayCalories}
@@ -348,7 +341,7 @@ const Dashboard = () => {
               color="orange"
             />
           </div>
-          <div className="animate-zoom-in" style={{animationDelay: '0.7s'}}>
+          <div className="animate-elastic-bounce stagger-7">
             <StatsCard 
               icon={<FaTrophy />}
               value={stats.activeGoals}

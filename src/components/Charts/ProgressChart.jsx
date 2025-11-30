@@ -35,11 +35,12 @@ const ProgressChart = ({ activities }) => {
     return new Date(dateString).toLocaleDateString('en-US', { weekday: 'short' });
   };
 
+  // Calculate stats only for the last 7 days (weekly data)
   const stats = {
-    totalCalories: activities.reduce((sum, activity) => sum + activity.calories, 0),
-    totalSteps: activities.reduce((sum, activity) => sum + (activity.steps || 0), 0),
-    totalDuration: activities.reduce((sum, activity) => sum + activity.duration, 0),
-    totalWorkouts: activities.length
+    totalCalories: weeklyData.reduce((sum, day) => sum + day.calories, 0),
+    totalSteps: weeklyData.reduce((sum, day) => sum + day.steps, 0),
+    totalDuration: weeklyData.reduce((sum, day) => sum + day.duration, 0),
+    totalWorkouts: weeklyData.reduce((sum, day) => sum + day.workouts, 0)
   };
 
   const StatCard = ({ icon, value, label, color, trend }) => (

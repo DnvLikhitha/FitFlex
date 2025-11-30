@@ -70,27 +70,10 @@ const Activities = () => {
     }
   };
 
-  const handleSaveActivity = (savedActivity) => {
-    // Called after ActivityForm posts/puts (or falls back). If parent receives savedActivity,
-    // persist it to local state and localStorage so frontend-only mode works.
+  const handleSaveActivity = () => {
     setShowForm(false);
     setEditingActivity(null);
-
-    if (savedActivity) {
-      setActivities(prev => {
-        const exists = prev.find(a => a.id === savedActivity.id);
-        let next;
-        if (exists) {
-          next = prev.map(a => (a.id === savedActivity.id ? savedActivity : a));
-        } else {
-          next = [...prev, savedActivity];
-        }
-        try { localStorage.setItem('activities', JSON.stringify(next)); } catch (e) {}
-        return next;
-      });
-    } else {
-      fetchActivities();
-    }
+    fetchActivities();
   };
 
   const handleCancelForm = () => {

@@ -149,6 +149,160 @@
       "date": "2025-11-30",
       "notes": "",
       "id": 12
+    },
+    {
+      "userId": 2,
+      "type": "Walking",
+      "duration": 100,
+      "calories": 200,
+      "intensity": "low",
+      "steps": 8000,
+      "date": "2025-11-30",
+      "notes": "",
+      "id": 13
+    },
+    {
+      "userId": 2,
+      "type": "Swimming",
+      "duration": 200,
+      "calories": 1800,
+      "intensity": "low",
+      "steps": 2000,
+      "date": "2025-11-30",
+      "notes": "",
+      "id": 14
+    },
+    {
+      "userId": 2,
+      "type": "Running",
+      "duration": 45,
+      "calories": 450,
+      "intensity": "high",
+      "steps": 7500,
+      "date": "2025-11-29",
+      "notes": "Morning jog in the park",
+      "id": 15
+    },
+    {
+      "userId": 2,
+      "type": "Yoga",
+      "duration": 60,
+      "calories": 180,
+      "intensity": "medium",
+      "steps": 1200,
+      "date": "2025-11-28",
+      "notes": "Evening relaxation session",
+      "id": 16
+    },
+    {
+      "userId": 2,
+      "type": "Cycling",
+      "duration": 50,
+      "calories": 400,
+      "intensity": "medium",
+      "steps": 3500,
+      "date": "2025-11-27",
+      "notes": "Bike ride around the neighborhood",
+      "id": 17
+    },
+    {
+      "userId": 2,
+      "type": "Weight Training",
+      "duration": 40,
+      "calories": 280,
+      "intensity": "high",
+      "steps": 2800,
+      "date": "2025-11-26",
+      "notes": "Full body workout",
+      "id": 18
+    },
+    {
+      "userId": 2,
+      "type": "Running",
+      "duration": 35,
+      "calories": 380,
+      "intensity": "medium",
+      "steps": 5800,
+      "date": "2025-11-25",
+      "notes": "Evening jog",
+      "id": 19
+    },
+    {
+      "userId": 2,
+      "type": "Swimming",
+      "duration": 55,
+      "calories": 520,
+      "intensity": "high",
+      "steps": 1800,
+      "date": "2025-11-24",
+      "notes": "Lap swimming session",
+      "id": 20
+    },
+    {
+      "userId": 2,
+      "type": "Walking",
+      "duration": 120,
+      "calories": 340,
+      "intensity": "low",
+      "steps": 9500,
+      "date": "2025-11-25",
+      "notes": "Long nature walk",
+      "id": 21
+    },
+    {
+      "userId": 2,
+      "type": "Yoga",
+      "duration": 50,
+      "calories": 160,
+      "intensity": "medium",
+      "steps": 1500,
+      "date": "2025-11-26",
+      "notes": "Power yoga session",
+      "id": 22
+    },
+    {
+      "userId": 2,
+      "type": "Cycling",
+      "duration": 65,
+      "calories": 520,
+      "intensity": "high",
+      "steps": 4200,
+      "date": "2025-11-24",
+      "notes": "Hill cycling workout",
+      "id": 23
+    },
+    {
+      "userId": 2,
+      "type": "Aerobics",
+      "duration": 45,
+      "calories": 390,
+      "intensity": "high",
+      "steps": 6500,
+      "date": "2025-11-25",
+      "notes": "Dance aerobics class",
+      "id": 24
+    },
+    {
+      "userId": 2,
+      "type": "Running",
+      "duration": 30,
+      "calories": 320,
+      "intensity": "medium",
+      "steps": 5200,
+      "date": "2025-11-27",
+      "notes": "Quick morning run",
+      "id": 25
+    },
+    {
+      "userId": 2,
+      "type": "Weight Training",
+      "duration": 55,
+      "calories": 340,
+      "intensity": "high",
+      "steps": 3200,
+      "date": "2025-11-29",
+      "notes": "Leg day workout",
+      "id": 26
     }
   ],
   "goals": [
@@ -217,6 +371,50 @@
       "userId": 4,
       "current": 19,
       "id": 6
+    },
+    {
+      "title": "Lose weight",
+      "type": "weight",
+      "target": 2,
+      "unit": "kg",
+      "deadline": "2025-12-02",
+      "completed": true,
+      "userId": 2,
+      "current": 2,
+      "id": 7
+    },
+    {
+      "title": "Daily Step Goal",
+      "type": "activity",
+      "target": 10000,
+      "unit": "steps",
+      "deadline": "2025-12-31",
+      "completed": false,
+      "userId": 2,
+      "current": 7500,
+      "id": 8
+    },
+    {
+      "title": "Burn 400 Calories Daily",
+      "type": "calories",
+      "target": 400,
+      "unit": "cal",
+      "deadline": "2025-12-31",
+      "completed": false,
+      "userId": 2,
+      "current": 320,
+      "id": 9
+    },
+    {
+      "title": "Increase Strength",
+      "type": "activity",
+      "target": 20,
+      "unit": "days",
+      "deadline": "2025-12-20",
+      "completed": false,
+      "userId": 2,
+      "current": 8,
+      "id": 10
     }
   ],
   "nutrition": [
@@ -237,6 +435,69 @@
       "carbs": 0,
       "fat": 4,
       "id": 2
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-30",
+      "calories": 250,
+      "protein": 39.2,
+      "carbs": 0,
+      "fat": 8,
+      "id": 3
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-29",
+      "calories": 1850,
+      "protein": 95,
+      "carbs": 220,
+      "fat": 55,
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-28",
+      "calories": 1920,
+      "protein": 88,
+      "carbs": 245,
+      "fat": 48,
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-27",
+      "calories": 2100,
+      "protein": 102,
+      "carbs": 260,
+      "fat": 62,
+      "id": 6
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-26",
+      "calories": 1950,
+      "protein": 98,
+      "carbs": 235,
+      "fat": 52,
+      "id": 7
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-25",
+      "calories": 2050,
+      "protein": 105,
+      "carbs": 248,
+      "fat": 58,
+      "id": 8
+    },
+    {
+      "userId": 2,
+      "date": "2025-11-24",
+      "calories": 1880,
+      "protein": 92,
+      "carbs": 225,
+      "fat": 50,
+      "id": 9
     }
   ]
 }
