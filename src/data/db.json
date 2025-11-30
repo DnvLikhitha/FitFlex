@@ -26,6 +26,15 @@
       "weight": "12",
       "height": "12",
       "id": 3
+    },
+    {
+      "name": "geeta",
+      "email": "reva@gmail.com",
+      "password": "Chaitu@13",
+      "age": "15",
+      "weight": "60",
+      "height": "172",
+      "id": 4
     }
   ],
   "activities": [
@@ -118,6 +127,28 @@
       "steps": 0,
       "date": "2025-11-21",
       "notes": "Long distance ride"
+    },
+    {
+      "userId": 4,
+      "type": "Walking",
+      "duration": 90,
+      "calories": 360,
+      "intensity": "medium",
+      "steps": 0,
+      "date": "2025-11-30",
+      "notes": "+",
+      "id": 11
+    },
+    {
+      "userId": 4,
+      "type": "Aerobics",
+      "duration": 60,
+      "calories": 450,
+      "intensity": "medium",
+      "steps": 0,
+      "date": "2025-11-30",
+      "notes": "",
+      "id": 12
     }
   ],
   "goals": [
@@ -175,6 +206,37 @@
       "type": "calories",
       "deadline": "2025-12-31",
       "completed": false
+    },
+    {
+      "title": "lose 10kg",
+      "type": "weight",
+      "target": 50,
+      "unit": "kg",
+      "deadline": "2025-12-30",
+      "completed": false,
+      "userId": 4,
+      "current": 19,
+      "id": 6
+    }
+  ],
+  "nutrition": [
+    {
+      "id": 1,
+      "userId": 1,
+      "date": "2025-11-30",
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    {
+      "userId": 4,
+      "date": "2025-11-30",
+      "calories": 125,
+      "protein": 19.6,
+      "carbs": 0,
+      "fat": 4,
+      "id": 2
     }
   ]
 }

@@ -108,13 +108,19 @@ const Goals = () => {
 
   const calculateGoalStats = () => {
     const totalGoals = goals.length;
-    const completedGoals = goals.filter(g => g.progress >= g.target).length;
+    const completedGoals = goals.filter(g => g.completed === true).length;
     const activeGoals = totalGoals - completedGoals;
+    
+    // Calculate average progress - use current field if available, fallback to progress
     const avgProgress = totalGoals > 0 
-      ? goals.reduce((sum, g) => sum + (g.progress / g.target) * 100, 0) / totalGoals 
+      ? goals.reduce((sum, g) => {
+          const currentValue = g.current !== undefined ? g.current : (g.progress || 0);
+          const targetValue = g.target || 1;
+          return sum + (currentValue / targetValue) * 100;
+        }, 0) / totalGoals 
       : 0;
 
-    return { totalGoals, completedGoals, activeGoals, avgProgress: Math.round(avgProgress) };
+    return { totalGoals, completedGoals, activeGoals, avgProgress: Math.round(Math.min(avgProgress, 100)) };
   };
 
   const stats = calculateGoalStats();

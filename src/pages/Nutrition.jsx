@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaAppleAlt, FaFire, FaDrumstickBite, FaBreadSlice, FaCheese } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 function Nutrition() {
+  const { currentUser } = useAuth();
   const [query, setQuery] = useState("");
   const [nutrition, setNutrition] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [servings, setServings] = useState(1);
   const [dailyIntake, setDailyIntake] = useState({
     calories: 0,
     protein: 0,
     carbs: 0,
     fat: 0
   });
+
+  // Load daily intake on mount
+  useEffect(() => {
+    if (currentUser) {
+      loadDailyIntake();
+    }
+  }, [currentUser]);
 
   const getNutrition = async () => {
     if (!query) return;
@@ -136,8 +147,122 @@ function Nutrition() {
     fat: 65
   };
 
+  const loadDailyIntake = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await axios.get(`http://localhost:3001/nutrition?userId=${currentUser.id}&date=${today}`);
+      
+      if (response.data && response.data.length > 0) {
+        setDailyIntake({
+          calories: response.data[0].calories,
+          protein: response.data[0].protein,
+          carbs: response.data[0].carbs,
+          fat: response.data[0].fat
+        });
+      } else {
+        // Create new nutrition entry for today
+        await axios.post('http://localhost:3001/nutrition', {
+          userId: currentUser.id,
+          date: today,
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0
+        });
+        setDailyIntake({
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0
+        });
+      }
+    } catch (error) {
+      console.error('Error loading daily intake:', error);
+      setDailyIntake({
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0
+      });
+    }
+  };
+
+  const saveDailyIntake = async (newIntake) => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await axios.get(`http://localhost:3001/nutrition?userId=${currentUser.id}&date=${today}`);
+      
+      if (response.data && response.data.length > 0) {
+        // Update existing entry
+        await axios.put(`http://localhost:3001/nutrition/${response.data[0].id}`, {
+          userId: currentUser.id,
+          date: today,
+          calories: newIntake.calories,
+          protein: newIntake.protein,
+          carbs: newIntake.carbs,
+          fat: newIntake.fat
+        });
+      } else {
+        // Create new entry
+        await axios.post('http://localhost:3001/nutrition', {
+          userId: currentUser.id,
+          date: today,
+          calories: newIntake.calories,
+          protein: newIntake.protein,
+          carbs: newIntake.carbs,
+          fat: newIntake.fat
+        });
+      }
+      // Also save to localStorage as backup
+      localStorage.setItem('dailyIntake', JSON.stringify(newIntake));
+    } catch (error) {
+      console.error('Error saving daily intake:', error);
+      // Fallback to localStorage if database fails
+      localStorage.setItem('dailyIntake', JSON.stringify(newIntake));
+    }
+  };
+
   const getProgressPercentage = (current, goal) => {
     return Math.min((current / goal) * 100, 100);
+  };
+
+  const addTodailyIntake = () => {
+    if (!nutrition) return;
+
+    const multipliedNutrition = {
+      calories: (nutrition.nutriments["energy-kcal_100g"] || 0) * servings,
+      protein: (nutrition.nutriments.proteins_100g || 0) * servings,
+      carbs: (nutrition.nutriments.carbohydrates_100g || 0) * servings,
+      fat: (nutrition.nutriments.fat_100g || 0) * servings
+    };
+
+    const newIntake = {
+      calories: dailyIntake.calories + multipliedNutrition.calories,
+      protein: dailyIntake.protein + multipliedNutrition.protein,
+      carbs: dailyIntake.carbs + multipliedNutrition.carbs,
+      fat: dailyIntake.fat + multipliedNutrition.fat
+    };
+
+    setDailyIntake(newIntake);
+    // Save to both database and localStorage
+    saveDailyIntake(newIntake);
+
+    setNutrition(null);
+    setServings(1);
+    toast.success(`Added ${nutrition.product_name} (${servings} servings) to daily intake!`);
+  };
+
+  const resetDailyIntake = () => {
+    const resetIntake = {
+      calories: 0,
+      protein: 0,
+      carbs: 0,
+      fat: 0
+    };
+    setDailyIntake(resetIntake);
+    // Save to both database and localStorage
+    saveDailyIntake(resetIntake);
+    toast.info("Daily intake reset");
   };
 
   return (
@@ -160,6 +285,15 @@ function Nutrition() {
       </div>
 
       {/* Daily Macros Overview */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold text-white">Daily Intake</h2>
+        <button
+          onClick={resetDailyIntake}
+          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold text-white transition-all"
+        >
+          Reset
+        </button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-5 border border-green-500/20 hover:border-green-500/40 transition-all group hover:scale-105">
           <div className="flex items-center justify-between mb-3">
@@ -280,6 +414,25 @@ function Nutrition() {
             )}
           </div>
 
+          {/* Servings Section */}
+          <div className="mb-6 p-4 bg-white/5 rounded-xl border border-green-500/20">
+            <label className="text-gray-300 font-semibold mb-3 block">Servings (based on 100g)</label>
+            <div className="flex items-center gap-3">
+              <input
+                type="number"
+                min="0.5"
+                step="0.5"
+                value={servings}
+                onChange={(e) => setServings(Math.max(0.5, parseFloat(e.target.value)))}
+                className="w-20 px-3 py-2 bg-white/10 border border-green-500/30 rounded-lg text-white text-center focus:outline-none focus:border-green-500"
+              />
+              <span className="text-gray-400">servings</span>
+              <div className="ml-auto text-sm text-gray-300">
+                <span className="text-green-400 font-semibold">{(servings * 100).toFixed(0)}g</span> total
+              </div>
+            </div>
+          </div>
+
           {nutrition.nutriments && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-white/5 rounded-xl p-4 border border-green-500/20">
@@ -288,7 +441,7 @@ function Nutrition() {
                   <FaFire className="text-orange-500" />
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments["energy-kcal_100g"] || "N/A"} <span className="text-sm text-gray-400">kcal/100g</span>
+                  {Math.round((nutrition.nutriments["energy-kcal_100g"] || 0) * servings)} <span className="text-sm text-gray-400">kcal</span>
                 </div>
               </div>
 
@@ -298,7 +451,7 @@ function Nutrition() {
                   <FaDrumstickBite className="text-red-500" />
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.proteins_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.proteins_100g || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -308,7 +461,7 @@ function Nutrition() {
                   <FaBreadSlice className="text-blue-500" />
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.carbohydrates_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.carbohydrates_100g || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -318,7 +471,7 @@ function Nutrition() {
                   <FaCheese className="text-yellow-500" />
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.fat_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.fat_100g || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -328,7 +481,7 @@ function Nutrition() {
                   <span className="text-2xl">🍬</span>
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.sugars_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.sugars_100g || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -338,7 +491,7 @@ function Nutrition() {
                   <span className="text-2xl">🌾</span>
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.fiber_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.fiber_100g || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -348,7 +501,7 @@ function Nutrition() {
                   <span className="text-2xl">🧂</span>
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments.sodium_100g || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments.sodium_100g || 0) * servings * 100) / 100).toFixed(2)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
 
@@ -358,7 +511,7 @@ function Nutrition() {
                   <span className="text-2xl">🥓</span>
                 </div>
                 <div className="text-2xl font-black text-white mt-2">
-                  {nutrition.nutriments["saturated-fat_100g"] || "N/A"} <span className="text-sm text-gray-400">g/100g</span>
+                  {(Math.round((nutrition.nutriments["saturated-fat_100g"] || 0) * servings * 10) / 10).toFixed(1)} <span className="text-sm text-gray-400">g</span>
                 </div>
               </div>
             </div>
@@ -367,8 +520,26 @@ function Nutrition() {
           <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
             <p className="text-sm text-gray-300 flex items-center">
               <span className="mr-2">ℹ️</span>
-              <span>All nutrition values are per 100g. Adjust portions accordingly for accurate tracking.</span>
+              <span>All nutrition values are multiplied by the number of servings selected above.</span>
             </p>
+          </div>
+
+          <div className="mt-6 flex gap-3">
+            <button
+              onClick={addTodailyIntake}
+              className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl hover:from-green-600 hover:to-green-700 font-bold text-white transition-all hover:scale-105"
+            >
+              Add to Daily Intake
+            </button>
+            <button
+              onClick={() => {
+                setNutrition(null);
+                setServings(1);
+              }}
+              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-bold text-white transition-all"
+            >
+              Clear
+            </button>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTrophy, FaFire } from 'react-icons/fa';
+import { FaRunning, FaPlus, FaDumbbell, FaHeartbeat, FaCalendar, FaBolt, FaTrophy, FaFire, FaAppleAlt, FaChartLine } from 'react-icons/fa';
 import ProgressChart from '../components/Charts/ProgressChart';
 import ActivityForm from '../components/Activity/ActivityForm';
 import { toast } from 'react-toastify';
@@ -15,6 +15,13 @@ const Dashboard = () => {
   const [goals, setGoals] = useState([]);
   const [showActivityForm, setShowActivityForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [dailyIntake, setDailyIntake] = useState({
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fat: 0
+  });
+  const [caloriesBurned, setCaloriesBurned] = useState(0);
 
   useEffect(() => {
     if (currentUser) {
@@ -26,6 +33,41 @@ const Dashboard = () => {
     }
   }, [currentUser]);
 
+  // Listen for changes - refresh data periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentUser) {
+        loadDailyIntake();
+      }
+    }, 2000); // Refresh every 2 seconds
+    return () => clearInterval(interval);
+  }, [currentUser]);
+
+  const loadDailyIntake = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await axios.get(`http://localhost:3001/nutrition?userId=${currentUser.id}&date=${today}`);
+      
+      if (response.data && response.data.length > 0) {
+        setDailyIntake({
+          calories: response.data[0].calories,
+          protein: response.data[0].protein,
+          carbs: response.data[0].carbs,
+          fat: response.data[0].fat
+        });
+      } else {
+        setDailyIntake({
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0
+        });
+      }
+    } catch (error) {
+      console.error('Error loading daily intake:', error);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const [activitiesRes, goalsRes] = await Promise.all([
@@ -34,6 +76,45 @@ const Dashboard = () => {
       ]);
       setActivities(activitiesRes.data);
       setGoals(goalsRes.data);
+
+      // Load daily intake from database
+      const today = new Date().toISOString().split('T')[0];
+      try {
+        const nutritionRes = await axios.get(`http://localhost:3001/nutrition?userId=${currentUser.id}&date=${today}`);
+        if (nutritionRes.data && nutritionRes.data.length > 0) {
+          setDailyIntake({
+            calories: nutritionRes.data[0].calories,
+            protein: nutritionRes.data[0].protein,
+            carbs: nutritionRes.data[0].carbs,
+            fat: nutritionRes.data[0].fat
+          });
+        } else {
+          setDailyIntake({
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0
+          });
+        }
+      } catch (nutritionError) {
+        console.error('Error loading nutrition:', nutritionError);
+        setDailyIntake({
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0
+        });
+      }
+
+      // Calculate calories burned from today's activities
+      const todayActivities = activitiesRes.data.filter(activity => activity.date === today);
+      const burned = todayActivities.reduce((sum, activity) => sum + activity.calories, 0);
+
+      // Add bonus calories for completed goals
+      const completedGoals = goalsRes.data.filter(goal => goal.completed).length;
+      const bonusCalories = completedGoals * 50; // 50 calories per completed goal
+      
+      setCaloriesBurned(burned + bonusCalories);
     } catch (error) {
       toast.error('Failed to load dashboard data');
       console.error('Error fetching dashboard data:', error);
@@ -141,27 +222,27 @@ const Dashboard = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Activity Distribution Doughnut Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaRunning className="mr-3 text-green-400 animate-bounce-slow" />
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group">
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
+              <FaRunning className="mr-3 text-green-400 animate-bounce-slow group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
               Activity Distribution
             </h3>
             <DoughnutChart activities={activities} />
           </div>
 
           {/* Goals Progress Ring Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaTrophy className="mr-3 text-green-400 animate-bounce-slow" />
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.1s'}}>
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-amber-400 group-hover:bg-clip-text transition-all duration-300">
+              <FaTrophy className="mr-3 text-green-400 animate-bounce-slow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
               Goals Progress
             </h3>
             <GoalsRingChart goals={goals} />
           </div>
 
           {/* Calories Burned Chart */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <FaFire className="mr-3 text-green-400 animate-bounce-slow" />
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.2s'}}>
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-400 group-hover:to-orange-400 group-hover:bg-clip-text transition-all duration-300">
+              <FaFire className="mr-3 text-green-400 animate-bounce-slow group-hover:animate-pulse transition-all" />
               Weekly Calories
             </h3>
             <CaloriesBarChart activities={activities} />
@@ -169,16 +250,80 @@ const Dashboard = () => {
         </div>
 
         {/* Weekly Activity Chart */}
-        <div className="mt-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/30 hover-lift transition-smooth animate-slide-up" style={{animationDelay: '0.3s'}}>
-          <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-            <FaCalendar className="mr-3 text-green-400 animate-bounce-slow" />
+        <div className="mt-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.3s'}}>
+          <h3 className="text-2xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
+            <FaCalendar className="mr-3 text-green-400 animate-bounce-slow group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
             Weekly Activity Overview
           </h3>
           <WeeklyActivityChart activities={activities} />
         </div>
 
+        {/* Daily Nutrition & Calories Section */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Calories Consumed */}
+          <div className="bg-gradient-to-br from-green-900/40 to-gray-900 rounded-2xl p-6 border border-green-500/30 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group">
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
+              <FaAppleAlt className="mr-3 text-green-400 group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300" />
+              Daily Calories Consumed
+            </h3>
+            <div className="flex items-end justify-between group-hover:opacity-95 transition-opacity">
+              <div>
+                <div className="text-4xl font-black text-green-400 group-hover:scale-110 origin-left transition-transform duration-300">{Math.round(dailyIntake.calories)}</div>
+                <div className="text-sm text-gray-400 mt-2 group-hover:text-gray-300 transition-colors">Today's intake</div>
+              </div>
+              <div className="text-right space-y-2">
+                <div className="text-lg font-semibold text-gray-300 group-hover:text-gray-100 transition-colors">
+                  Protein: <span className="text-red-400 font-bold group-hover:scale-110 inline-block transition-transform">{Math.round(dailyIntake.protein)}g</span>
+                </div>
+                <div className="text-lg font-semibold text-gray-300 group-hover:text-gray-100 transition-colors">
+                  Carbs: <span className="text-blue-400 font-bold group-hover:scale-110 inline-block transition-transform">{Math.round(dailyIntake.carbs)}g</span>
+                </div>
+                <div className="text-lg font-semibold text-gray-300 group-hover:text-gray-100 transition-colors">
+                  Fat: <span className="text-yellow-400 font-bold group-hover:scale-110 inline-block transition-transform">{Math.round(dailyIntake.fat)}g</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Calories Burned */}
+          <div className="bg-gradient-to-br from-orange-900/40 to-gray-900 rounded-2xl p-6 border border-orange-500/30 shadow-lg hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-up group" style={{animationDelay: '0.1s'}}>
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-red-400 group-hover:bg-clip-text transition-all duration-300">
+              <FaFire className="mr-3 text-orange-400 group-hover:animate-pulse transition-all" />
+              Daily Calories Burned
+            </h3>
+            <div className="flex items-end justify-between group-hover:opacity-95 transition-opacity">
+              <div>
+                <div className="text-4xl font-black text-orange-400 group-hover:scale-110 origin-left transition-transform duration-300">{Math.round(caloriesBurned)}</div>
+                <div className="text-sm text-gray-400 mt-2 group-hover:text-gray-300 transition-colors">
+                  {stats.completedGoals > 0 && (
+                    <span className="text-green-400 font-semibold group-hover:animate-bounce">+{stats.completedGoals * 50} bonus from goals ✓</span>
+                  )}
+                  {stats.completedGoals === 0 && <span>Complete goals for bonus calories!</span>}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-green-400 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text transition-all duration-300">
+                  {Math.round(dailyIntake.calories - caloriesBurned > 0 ? dailyIntake.calories - caloriesBurned : 0)}
+                </div>
+                <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                  {dailyIntake.calories > caloriesBurned ? 'Calories remaining' : 'Deficit'}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress Chart Section - Interactive Weekly Analytics */}
+        <div className="mt-12 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 border border-green-500/20 shadow-lg hover:shadow-green-500/30 transition-all duration-300 animate-slide-up" style={{animationDelay: '0.5s'}}>
+          <h2 className="text-3xl font-bold text-white mb-8 flex items-center">
+            <FaChartLine className="mr-4 text-green-400 text-2xl animate-bounce-slow" />
+            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Weekly Analytics & Performance</span>
+          </h2>
+          <ProgressChart activities={activities} />
+        </div>
+
         {/* Stats Cards */}
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in">
           <div className="animate-zoom-in" style={{animationDelay: '0.4s'}}>
             <StatsCard 
               icon={<FaDumbbell />}
