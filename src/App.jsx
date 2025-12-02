@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Layout/Header';
@@ -14,7 +13,6 @@ import Goals from './pages/Goals';
 import History from './pages/History';
 import Profile from './pages/Profile';
 import Nutrition from './pages/Nutrition';
-
 function App() {
   return (
     <AuthProvider>

@@ -124,12 +124,10 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
-
   const handleSaveActivity = () => {
     setShowActivityForm(false);
     fetchData();
   };
-
   const calculateStats = () => {
     const today = new Date().toISOString().split('T')[0];
     const todayActivities = activities.filter(activity => activity.date === today);
@@ -143,9 +141,7 @@ const Dashboard = () => {
       totalWorkouts: activities.length,
     };
   };
-
   const stats = calculateStats();
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -153,7 +149,6 @@ const Dashboard = () => {
       </div>
     );
   }
-
   return (
     <>
       {/* Hero Section - Full Screen with video behind navbar */}
@@ -171,7 +166,6 @@ const Dashboard = () => {
         {/* Subtle Dark Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
-
       {/* Hero Content with Image Overlay */}
       <div className="relative h-screen flex flex-col items-center justify-center px-12 z-10">
         {/* Gradient Text Image */}
@@ -183,7 +177,6 @@ const Dashboard = () => {
             style={{filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'}}
           />
         </div>
-        
         {/* Tagline and CTA */}
         <div className="text-center max-w-3xl">
           <p className="text-2xl text-white font-semibold mb-10 leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
@@ -202,10 +195,8 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-
       {/* Content Section - Starts below video */}
       <div className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900 pt-8 pb-20 space-y-8">
-
       {/* Activity Form Modal */}
       {showActivityForm && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
@@ -217,7 +208,6 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-
       {/* Stats & Charts Section */}
       <div className="container mx-auto px-4">
         {/* Progress Chart Section - Interactive Weekly Analytics */}
@@ -227,8 +217,7 @@ const Dashboard = () => {
             <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Weekly Analytics & Performance</span>
           </h2>
           <ProgressChart activities={activities} />
-        </div>
-        
+        </div>       
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
           {/* Activity Distribution Doughnut Chart */}
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-scale-up-bounce animate-card-hover-float group">
@@ -238,7 +227,6 @@ const Dashboard = () => {
             </h3>
             <DoughnutChart activities={activities} />
           </div>
-
           {/* Goals Progress Ring Chart */}
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-wave-in stagger-2 animate-card-hover-float group">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-amber-400 group-hover:bg-clip-text transition-all duration-300">
@@ -247,7 +235,6 @@ const Dashboard = () => {
             </h3>
             <GoalsRingChart goals={goals} />
           </div>
-
           {/* Calories Burned Chart */}
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-green-500/20 shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 transform animate-flip-in stagger-3 animate-card-hover-float group">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-400 group-hover:to-orange-400 group-hover:bg-clip-text transition-all duration-300">
@@ -257,7 +244,6 @@ const Dashboard = () => {
             <CaloriesBarChart activities={activities} />
           </div>
         </div>
-
         {/* Daily Nutrition & Calories Section */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Calories Consumed */}
@@ -284,7 +270,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           {/* Calories Burned */}
           <div className="bg-gradient-to-br from-orange-900/40 to-gray-900 rounded-2xl p-6 border border-orange-500/30 shadow-lg hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300 transform animate-slide-in-right-bounce stagger-2 animate-rainbow-border group">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-red-400 group-hover:bg-clip-text transition-all duration-300">

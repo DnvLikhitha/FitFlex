@@ -35,6 +35,15 @@
       "weight": "60",
       "height": "172",
       "id": 4
+    },
+    {
+      "name": "Raja",
+      "email": "raja@gmail.com",
+      "password": "Raja@123",
+      "age": "30",
+      "weight": "50",
+      "height": "200",
+      "id": 5
     }
   ],
   "activities": [
@@ -185,17 +194,6 @@
     },
     {
       "userId": 2,
-      "type": "Yoga",
-      "duration": 60,
-      "calories": 180,
-      "intensity": "medium",
-      "steps": 1200,
-      "date": "2025-11-28",
-      "notes": "Evening relaxation session",
-      "id": 16
-    },
-    {
-      "userId": 2,
       "type": "Cycling",
       "duration": 50,
       "calories": 400,
@@ -303,6 +301,28 @@
       "date": "2025-11-29",
       "notes": "Leg day workout",
       "id": 26
+    },
+    {
+      "userId": 2,
+      "type": "Dance",
+      "duration": 200,
+      "calories": 1200,
+      "intensity": "high",
+      "steps": 0,
+      "date": "2025-12-01",
+      "notes": "+",
+      "id": 27
+    },
+    {
+      "userId": 2,
+      "type": "Yoga",
+      "duration": 100,
+      "calories": 100,
+      "intensity": "low",
+      "steps": 0,
+      "date": "2025-12-02",
+      "notes": "",
+      "id": 28
     }
   ],
   "goals": [
@@ -391,7 +411,7 @@
       "deadline": "2025-12-31",
       "completed": false,
       "userId": 2,
-      "current": 7500,
+      "current": 7503,
       "id": 8
     },
     {
@@ -498,6 +518,42 @@
       "carbs": 225,
       "fat": 50,
       "id": 9
+    },
+    {
+      "userId": 2,
+      "date": "2025-12-01",
+      "calories": 357,
+      "protein": 21.4,
+      "carbs": 3.6,
+      "fat": 25,
+      "id": 10
+    },
+    {
+      "userId": 2,
+      "date": "2025-12-01",
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0,
+      "id": 11
+    },
+    {
+      "userId": 2,
+      "date": "2025-12-02",
+      "calories": 143,
+      "protein": 12.5,
+      "carbs": 0,
+      "fat": 8.9,
+      "id": 12
+    },
+    {
+      "userId": 2,
+      "date": "2025-12-02",
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0,
+      "id": 13
     }
   ]
 }

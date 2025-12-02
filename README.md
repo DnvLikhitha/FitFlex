@@ -1,16 +1,112 @@
-# React + Vite
+# 🏋️‍♂️ Fitness Tracker Application
 
-This template provides a minimal setup to get React working in Vite with HMR and.
+A comprehensive full-stack web application for tracking fitness activities, monitoring nutrition, and visualizing progress towards health goals.
 
-Currently, two official plugins are available:
+![Fitness Tracker Banner](https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=1920)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Table of Contents
 
-## React Compiler
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Components Overview](#components-overview)
+- [Routing](#routing)
+- [State Management](#state-management)
+- [Screenshots](#screenshots)
+- [Future Enhancements](#future-enhancements)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Overview
 
-## Expanding the ESLint configuration
+The Fitness Tracker is a modern, responsive web application designed to help users maintain a healthy lifestyle by tracking their daily activities, monitoring nutritional intake, and visualizing their fitness progress through interactive charts and analytics.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Key Highlights
+
+- **User Authentication** - Secure login and registration system
+- **Activity Tracking** - Log various types of workouts with detailed metrics
+- **Nutrition Monitoring** - Track meals and macronutrient intake
+- **Progress Analytics** - Visual representation of fitness data through charts
+- **Responsive Design** - Works seamlessly across desktop, tablet, and mobile devices
+- **Real-time Updates** - Instant feedback and live data synchronization
+
+## ✨ Features
+
+### 🔐 Authentication
+- User registration with validation
+- Secure login system
+- Password encryption
+- Session management
+- Protected routes
+
+### 🏃 Activity Tracking
+- Log multiple activity types (Running, Cycling, Yoga, Swimming, Weight Training, etc.)
+- Track duration, calories burned, and steps
+- Intensity level selection
+- Add personal notes to workouts
+- Edit and delete activities
+- Auto-calculate calories based on activity type and duration
+- Beautiful card-based activity display
+
+### 🍎 Nutrition Monitoring
+- Log meals by type (Breakfast, Lunch, Dinner, Snacks)
+- Track calories and macronutrients (Protein, Carbs, Fats)
+- View nutritional breakdown
+- Daily meal history
+- Edit and delete meal entries
+- Macro distribution visualization
+
+### 📊 Progress Dashboard
+- Real-time statistics cards
+- Weekly activity charts
+- Nutrition breakdown pie charts
+- Activity type distribution
+- Calories burned trends
+- Interactive data visualization
+
+### 👤 User Profile
+- View and edit personal information
+- BMI calculation
+- Weight and height tracking
+- Account management
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18** - UI library with functional components and hooks
+- **React Router v6** - Client-side routing and navigation
+- **Tailwind CSS** - Utility-first CSS framework for styling
+- **Recharts** - Composable charting library for data visualization
+- **Axios** - HTTP client for API requests
+- **React Icons** - Icon library (Font Awesome, Material Design)
+- **React Toastify** - Toast notifications for user feedback
+
+### Backend
+- **JSON Server** - Mock REST API for rapid prototyping
+- **Node.js** - Runtime environment
+- **Express** (via JSON Server) - Web framework
+
+### Development Tools
+- **Create React App** - Project bootstrapping
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Git** - Version control
+
+## 📦 Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js** (v14.0.0 or higher)
+- **npm** (v6.0.0 or higher) or **yarn** (v1.22.0 or higher)
+- **Git** (optional, for cloning)
+
+Check versions:
+```bash
+node --version
+npm --version
